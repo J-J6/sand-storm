@@ -1,0 +1,56 @@
+<footer class="w-full bg-surface-container-low mt-space-xl">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-32 xl:pb-space-xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl mb-space-xl">
+
+            <div class="flex flex-col gap-space-sm">
+                <span class="font-headline-sm text-headline-sm text-primary uppercase">Sandstorm Industries Limited</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Precision Manufacturing &amp; Packaging Compliance Standards in Coast Region. Industrial rigor, metrology validation, and materials testing operating out of Mikindani, Mombasa.</p>
+                <div class="flex items-center gap-space-xs mt-space-sm">
+                    <span class="inline-block px-space-sm py-space-xs bg-surface-container text-on-secondary-container font-label-technical text-label-technical rounded">KEBS ACCREDITED</span>
+                    <span class="inline-block px-space-sm py-space-xs bg-surface-container text-on-secondary-container font-label-technical text-label-technical rounded">EAS CERTIFIED</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-space-sm">
+                <span class="font-label-technical text-label-technical uppercase tracking-widest text-on-surface">Explore the site</span>
+                <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('about') }}">About Sandstorm</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('services') }}">Packaging &amp; Tensile Testing</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Quality &amp; Metrology Standards</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Regulatory Compliance</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('contact') }}">Contact &amp; quote requests</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('privacy') }}">Privacy notice</a></li>
+                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('terms') }}">Request terms</a></li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col gap-space-sm">
+                <span class="font-label-technical text-label-technical uppercase tracking-widest text-on-surface">Coast Operations Base</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Mikindani Industrial Corridor<br>Mombasa-Nairobi Highway Junction<br>Mombasa County, Kenya</p>
+                <div class="flex flex-col gap-space-xs font-label-technical text-label-technical text-on-surface-variant mt-space-xs">
+                    <span>PLANT ID: MSA-MIK-094</span>
+                    <span>COASTAL REGISTRY: SEC-IV</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-space-sm">
+                <span class="font-label-technical text-label-technical uppercase tracking-widest text-on-surface">Quality Verification</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Batch test verifications and digital calibration seals issued under regional industrial metrology guidelines.</p>
+                <div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+                    <span class="font-label-technical text-label-technical text-on-tertiary-container block font-bold">METROLOGY GATEWAY</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Digital batch verification active 24/7 for marine &amp; freight packaging.</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+            <p class="text-center md:text-left">&copy; {{ date('Y') }} Sandstorm Industries Limited. All rights reserved. Compliant with KEBS &amp; East African Industrial Standards.</p>
+            <div class="flex items-center gap-space-lg font-label-technical text-label-technical uppercase">
+                <span class="text-on-surface-variant">ISO 9001:2015</span>
+                <span class="text-on-surface-variant">KEBS CD/432</span>
+                <span class="text-on-surface-variant">EAS 351</span>
+            </div>
+        </div>
+    </div>
+</footer>
