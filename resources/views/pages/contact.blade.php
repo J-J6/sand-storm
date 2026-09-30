@@ -86,7 +86,11 @@
 
                     <form class="flex flex-col gap-space-md" method="POST" action="{{ route('contact.submit') }}">
                         @csrf
-
+                        {{-- Honeypot: real visitors never see or fill this field. --}}
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label for="hp_check">Leave this field empty</label>
+                            <input type="text" id="hp_check" name="hp_check" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
                             <div class="flex flex-col gap-1">
                                 <label class="font-label-technical text-label-technical uppercase text-secondary" for="fullName">Full Name *</label>

@@ -19,6 +19,14 @@ class ContactController extends Controller
 
     public function submit(Request $request): RedirectResponse
     {
+        $successMessage = 'Thanks, your inquiry has been received. Our team aims to respond within two business days. If your request is urgent, please call us.';
+
+        // Honeypot: real visitors never see this field, so a value means a bot.
+        // Return the normal success message so the bot learns nothing.
+        if (filled($request->input('hp_check'))) {
+            return back()->with('success', $successMessage);
+        }
+
         $validated = $request->validate([
             'fullName' => ['required', 'string', 'max:255'],
             'orgName' => ['required', 'string', 'max:255'],
@@ -39,7 +47,7 @@ class ContactController extends Controller
             Mail::raw(
                 "New website inquiry #{$inquiry->id}\n\nName: {$inquiry->full_name}\nOrganization: {$inquiry->organization}\nEmail: {$inquiry->email}\nService: {$inquiry->service_interest}\n\nMessage:\n".($inquiry->message ?? '(none)'),
                 function (Message $message): void {
-                    $message->to('compliance@sandstormindustries.co.ke')
+                    $message->to(config('sandstorm.inquiry_recipient'))
                         ->subject('New Sandstorm website inquiry');
                 }
             );
@@ -50,9 +58,6 @@ class ContactController extends Controller
             ]);
         }
 
-        return back()->with(
-            'success',
-            'Thanks, your inquiry has been received. Our team aims to respond within two business days. If your request is urgent, please call us.'
-        );
+        return back()->with('success', $successMessage);
     }
 }
