@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Inquiry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    private const SERVICES = [
+        'cement-packaging' => 'Cement Packaging',
+        'raw-material' => 'Raw Material',
+        'qa-audit' => 'QA Audit',
+        'consulting' => 'Consulting',
+    ];
+
     public function showLogin(Request $request): View|RedirectResponse
     {
-        if ($request->session()->get('admin_authenticated') === true) {
+        if (Auth::check()) {
             return redirect()->route('admin.index');
         }
 
@@ -20,41 +28,73 @@ class AdminController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'max:255'],
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
         ]);
 
-        $configuredUsername = config('services.admin.username');
-        $configuredPassword = config('services.admin.password');
-
-        if (! filled($configuredUsername) || ! filled($configuredPassword)) {
+        if (! Auth::attempt($credentials)) {
             return back()
-                ->withErrors(['credentials' => 'Admin sign in is not configured. Add ADMIN_USERNAME and ADMIN_PASSWORD to the project .env file, then try again.'])
-                ->onlyInput('username');
-        }
-
-        if (! hash_equals((string) $configuredUsername, (string) $request->input('username'))
-            || ! hash_equals((string) $configuredPassword, (string) $request->input('password'))) {
-            return back()->withErrors(['credentials' => 'Those admin credentials are not correct.'])->onlyInput('username');
+                ->withErrors(['credentials' => 'Those admin credentials are not correct.'])
+                ->onlyInput('email');
         }
 
         $request->session()->regenerate();
-        $request->session()->put('admin_authenticated', true);
 
         return redirect()->intended(route('admin.index'));
     }
 
-    public function index(): View
+    public function index(Request $request): View|RedirectResponse
     {
+        $search = trim((string) $request->query('q', ''));
+        $service = (string) $request->query('service', '');
+
+        $inquiries = Inquiry::query()
+            ->when($search !== '', function ($query) use ($search) {
+                $like = '%'.$search.'%';
+
+                $query->where(function ($query) use ($like) {
+                    $query->where('full_name', 'like', $like)
+                        ->orWhere('organization', 'like', $like)
+                        ->orWhere('email', 'like', $like)
+                        ->orWhere('message', 'like', $like);
+                });
+            })
+            ->when(array_key_exists($service, self::SERVICES), fn ($query) => $query->where('service_interest', $service))
+            ->latest()
+            ->paginate(20)
+            ->withQueryString();
+
+        // After deleting the last row on a page, jump to the last page that still has rows.
+        if ($inquiries->isEmpty() && $inquiries->currentPage() > 1) {
+            return redirect()
+                ->route('admin.index', array_merge($request->query(), ['page' => $inquiries->lastPage()]))
+                ->with('status', session('status'));
+        }
+
         return view('admin.index', [
-            'inquiries' => Inquiry::query()->latest()->paginate(20),
+            'inquiries' => $inquiries,
+            'serviceLabels' => self::SERVICES,
+            'stats' => [
+                'total' => Inquiry::count(),
+                'today' => Inquiry::where('created_at', '>=', now()->startOfDay())->count(),
+                'week' => Inquiry::where('created_at', '>=', now()->subDays(7))->count(),
+            ],
         ]);
+    }
+
+    public function destroy(Inquiry $inquiry): RedirectResponse
+    {
+        $name = $inquiry->full_name;
+        $inquiry->delete();
+
+        return back()->with('status', "The inquiry from {$name} was deleted.");
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget('admin_authenticated');
+        Auth::logout();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
