@@ -28,3 +28,14 @@ Thumbs.db
 
 # Local SQLite data may contain customer inquiries
 /database/*.sqlite
+
+# AI coding-assistant tooling (not part of the site)
+/.agents/
+/.claude/
+/.grok/
+/.pi/
+/.mcp.json
+/AGENTS.md
+/CLAUDE.md
+/boost.json
+/opencode.json
