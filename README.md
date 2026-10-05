@@ -24,22 +24,29 @@ php artisan serve
 
 ## Admin area
 
-Sign in at `/admin/login` with an account from the `users` table. There is no public registration, so create the admin yourself:
+Sign in at `/admin/login`. There is no public registration. Accounts live in the `users` table and have one of two roles:
+
+| Role | Can do |
+|---|---|
+| Admin | View, search and reply to inquiries |
+| Super admin | Everything an admin can, plus delete inquiries and manage admins (the Admins page) |
+
+Create the first super admin yourself, because a new account is a plain admin by default:
 
 ```bash
 php artisan tinker
 ```
 ```php
-App\Models\User::create([
-    'name' => 'Admin',
-    'email' => 'admin@example.com',
+$user = App\Models\User::create([
+    'name' => 'Owner',
+    'email' => 'owner@example.com',
     'password' => 'use-a-long-unique-password',
 ]);
+$user->role = 'super_admin';
+$user->save();
 ```
 
-The password is hashed automatically. To change it later, load the user, set `$user->password = '...'`, and call `$user->save()`.
-
-From the inbox you can search, filter by service, reply by email, and permanently delete an inquiry.
+After that, super admins add, remove and reset other admins from the **Admins** page in the console. Passwords must be at least 12 characters, and resetting a password or removing someone signs them out immediately. Nobody can change or remove their own account, and the last super admin can never be demoted or removed.
 
 ## Configuration
 
@@ -85,7 +92,7 @@ Before going live:
 2. Set `APP_URL` to the real address, and `SESSION_SECURE_COOKIE=true` once the site uses HTTPS.
 3. Configure real SMTP in the `MAIL_*` settings and send a test inquiry.
 4. Run `php artisan migrate --force`.
-5. Create the production admin with a long random password.
+5. Create the production super admin (see Admin area) with a long random password.
 6. Build the CSS (`npm run build`) or upload the `public/build` folder.
 7. Run `php artisan config:cache`, `php artisan route:cache` and `php artisan view:cache`.
 8. Make sure `storage` and `bootstrap/cache` are writable by the web server.
