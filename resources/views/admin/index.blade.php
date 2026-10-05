@@ -4,6 +4,7 @@
 
 @section('content')
 @php
+    $canDelete = auth()->user()->isSuperAdmin();
     $filtered = filled(request('q')) || filled(request('service'));
     $stats = [
         ['label' => 'Total inquiries', 'value' => $stats['total'], 'icon' => 'inbox'],
@@ -115,10 +116,12 @@
                     <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode('Re: your Sandstorm inquiry') }}" class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary font-body-sm font-medium text-on-primary hover:bg-primary-container">
                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">reply</span> Reply
                     </a>
-                    <button type="button" data-delete-url="{{ route('admin.inquiries.destroy', $inquiry) }}" data-delete-name="{{ $inquiry->full_name }}"
-                            class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border border-error/40 font-body-sm font-medium text-error hover:bg-error-container">
-                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete
-                    </button>
+                    @if ($canDelete)
+                        <button type="button" data-delete-url="{{ route('admin.inquiries.destroy', $inquiry) }}" data-delete-name="{{ $inquiry->full_name }}"
+                                class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border border-error/40 font-body-sm font-medium text-error hover:bg-error-container">
+                            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete
+                        </button>
+                    @endif
                 </div>
             </article>
         @endforeach
@@ -159,10 +162,12 @@
                             <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode('Re: your Sandstorm inquiry') }}" class="inline-flex h-9 items-center gap-1 rounded-lg px-space-sm font-medium text-primary hover:bg-surface-container-high">
                                 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">reply</span> Reply
                             </a>
-                            <button type="button" data-delete-url="{{ route('admin.inquiries.destroy', $inquiry) }}" data-delete-name="{{ $inquiry->full_name }}"
-                                    class="inline-flex h-9 items-center gap-1 rounded-lg px-space-sm font-medium text-error hover:bg-error-container">
-                                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete
-                            </button>
+                            @if ($canDelete)
+                                <button type="button" data-delete-url="{{ route('admin.inquiries.destroy', $inquiry) }}" data-delete-name="{{ $inquiry->full_name }}"
+                                        class="inline-flex h-9 items-center gap-1 rounded-lg px-space-sm font-medium text-error hover:bg-error-container">
+                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete
+                                </button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -175,51 +180,55 @@
     @endif
 @endif
 
-{{-- Delete confirmation --}}
-<dialog id="delete-dialog" class="w-[calc(100%-2rem)] max-w-md rounded-xl border border-outline-variant/40 bg-surface-container-lowest p-0 text-on-surface shadow-2xl backdrop:bg-primary/60">
-    <form id="delete-form" method="POST" action="" class="flex flex-col gap-space-md p-space-lg">
-        @csrf
-        @method('DELETE')
-        <div class="flex items-start gap-space-md">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-error-container text-error">
-                <span class="material-symbols-outlined text-[22px]" aria-hidden="true">warning</span>
-            </span>
-            <div>
-                <h2 class="font-headline-sm text-headline-sm text-primary">Delete this inquiry?</h2>
-                <p class="mt-1 text-body-md text-on-surface-variant">
-                    The inquiry from <strong class="text-primary" data-delete-label></strong> will be permanently removed. This cannot be undone.
-                </p>
+@if ($canDelete)
+    {{-- Delete confirmation --}}
+    <dialog id="delete-dialog" class="w-[calc(100%-2rem)] max-w-md rounded-xl border border-outline-variant/40 bg-surface-container-lowest p-0 text-on-surface shadow-2xl backdrop:bg-primary/60">
+        <form id="delete-form" method="POST" action="" class="flex flex-col gap-space-md p-space-lg">
+            @csrf
+            @method('DELETE')
+            <div class="flex items-start gap-space-md">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-error-container text-error">
+                    <span class="material-symbols-outlined text-[22px]" aria-hidden="true">warning</span>
+                </span>
+                <div>
+                    <h2 class="font-headline-sm text-headline-sm text-primary">Delete this inquiry?</h2>
+                    <p class="mt-1 text-body-md text-on-surface-variant">
+                        The inquiry from <strong class="text-primary" data-delete-label></strong> will be permanently removed. This cannot be undone.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="flex justify-end gap-space-sm">
-            <button type="button" data-delete-cancel class="inline-flex h-10 items-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
-            <button type="submit" class="inline-flex h-10 items-center gap-1.5 rounded-lg bg-error px-space-md font-body-md font-semibold text-on-error hover:opacity-90">
-                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete permanently
-            </button>
-        </div>
-    </form>
-</dialog>
+            <div class="flex justify-end gap-space-sm">
+                <button type="button" data-delete-cancel class="inline-flex h-10 items-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
+                <button type="submit" class="inline-flex h-10 items-center gap-1.5 rounded-lg bg-error px-space-md font-body-md font-semibold text-on-error hover:opacity-90">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete permanently
+                </button>
+            </div>
+        </form>
+    </dialog>
+@endif
 @endsection
 
-@push('scripts')
-<script>
-    const deleteDialog = document.getElementById('delete-dialog');
-    const deleteForm = document.getElementById('delete-form');
-    const deleteLabel = deleteDialog.querySelector('[data-delete-label]');
+@if ($canDelete)
+    @push('scripts')
+    <script>
+        const deleteDialog = document.getElementById('delete-dialog');
+        const deleteForm = document.getElementById('delete-form');
+        const deleteLabel = deleteDialog.querySelector('[data-delete-label]');
 
-    document.querySelectorAll('[data-delete-url]').forEach((button) => {
-        button.addEventListener('click', () => {
-            deleteForm.action = button.dataset.deleteUrl;
-            deleteLabel.textContent = button.dataset.deleteName;
-            deleteDialog.showModal();
+        document.querySelectorAll('[data-delete-url]').forEach((button) => {
+            button.addEventListener('click', () => {
+                deleteForm.action = button.dataset.deleteUrl;
+                deleteLabel.textContent = button.dataset.deleteName;
+                deleteDialog.showModal();
+            });
         });
-    });
 
-    deleteDialog.querySelector('[data-delete-cancel]').addEventListener('click', () => deleteDialog.close());
-    deleteDialog.addEventListener('click', (event) => {
-        if (event.target === deleteDialog) {
-            deleteDialog.close();
-        }
-    });
-</script>
-@endpush
+        deleteDialog.querySelector('[data-delete-cancel]').addEventListener('click', () => deleteDialog.close());
+        deleteDialog.addEventListener('click', (event) => {
+            if (event.target === deleteDialog) {
+                deleteDialog.close();
+            }
+        });
+    </script>
+    @endpush
+@endif

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Middleware\EnsureAdminAuthenticated;
+use App\Http\Middleware\EnsureSuperAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ContactController::class, 'index'])->name('home');
@@ -16,8 +18,18 @@ Route::post('/contact', [ContactController::class, 'submit'])->middleware('throt
 
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->middleware('throttle:5,1')->name('admin.login.submit');
+
 Route::middleware(EnsureAdminAuthenticated::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::delete('/admin/inquiries/{inquiry}', [AdminController::class, 'destroy'])->name('admin.inquiries.destroy');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware(EnsureSuperAdmin::class)->group(function () {
+        Route::delete('/admin/inquiries/{inquiry}', [AdminController::class, 'destroy'])->name('admin.inquiries.destroy');
+
+        Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+        Route::post('/admin/users', [AdminUserController::class, 'store'])->name('admin.users.store');
+        Route::patch('/admin/users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('admin.users.password');
+        Route::patch('/admin/users/{user}/role', [AdminUserController::class, 'updateRole'])->name('admin.users.role');
+        Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    });
 });

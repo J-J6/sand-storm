@@ -29,6 +29,16 @@ class AdminAreaTest extends TestCase
         ]);
     }
 
+    private function plainAdmin(array $attributes = []): User
+    {
+        return User::factory()->create(array_merge(['role' => User::ROLE_ADMIN], $attributes));
+    }
+
+    private function superAdmin(array $attributes = []): User
+    {
+        return User::factory()->create(array_merge(['role' => User::ROLE_SUPER_ADMIN], $attributes));
+    }
+
     public function test_guests_are_sent_to_the_login_page(): void
     {
         $this->get('/admin')->assertRedirect('/admin/login');
@@ -36,7 +46,7 @@ class AdminAreaTest extends TestCase
 
     public function test_admin_can_sign_in_and_see_the_inbox(): void
     {
-        $user = User::factory()->create(['password' => 'secret-pass-123']);
+        $user = $this->plainAdmin(['password' => 'secret-pass-123']);
 
         $this->post('/admin/login', [
             'email' => $user->email,
@@ -49,7 +59,7 @@ class AdminAreaTest extends TestCase
 
     public function test_a_wrong_password_shows_an_error(): void
     {
-        $user = User::factory()->create(['password' => 'secret-pass-123']);
+        $user = $this->plainAdmin(['password' => 'secret-pass-123']);
 
         $this->from('/admin/login')
             ->post('/admin/login', ['email' => $user->email, 'password' => 'wrong'])
@@ -61,7 +71,7 @@ class AdminAreaTest extends TestCase
 
     public function test_the_sixth_login_attempt_in_a_minute_is_blocked(): void
     {
-        $user = User::factory()->create(['password' => 'secret-pass-123']);
+        $user = $this->plainAdmin(['password' => 'secret-pass-123']);
 
         for ($i = 0; $i < 5; $i++) {
             $this->post('/admin/login', ['email' => $user->email, 'password' => 'wrong']);
@@ -71,15 +81,26 @@ class AdminAreaTest extends TestCase
             ->assertStatus(429);
     }
 
-    public function test_a_signed_in_admin_can_delete_an_inquiry(): void
+    public function test_a_super_admin_can_delete_an_inquiry(): void
     {
         $inquiry = $this->makeInquiry();
 
-        $this->actingAs(User::factory()->create())
+        $this->actingAs($this->superAdmin())
             ->delete("/admin/inquiries/{$inquiry->id}")
             ->assertRedirect();
 
         $this->assertDatabaseMissing('inquiries', ['id' => $inquiry->id]);
+    }
+
+    public function test_a_plain_admin_cannot_delete_an_inquiry(): void
+    {
+        $inquiry = $this->makeInquiry();
+
+        $this->actingAs($this->plainAdmin())
+            ->delete("/admin/inquiries/{$inquiry->id}")
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('inquiries', ['id' => $inquiry->id]);
     }
 
     public function test_a_guest_cannot_delete_an_inquiry(): void
@@ -90,5 +111,25 @@ class AdminAreaTest extends TestCase
             ->assertRedirect('/admin/login');
 
         $this->assertDatabaseHas('inquiries', ['id' => $inquiry->id]);
+    }
+
+    public function test_a_plain_admin_does_not_see_delete_buttons(): void
+    {
+        $this->makeInquiry();
+
+        $this->actingAs($this->plainAdmin())
+            ->get('/admin')
+            ->assertOk()
+            ->assertDontSee('data-delete-url', false);
+    }
+
+    public function test_a_super_admin_sees_delete_buttons(): void
+    {
+        $this->makeInquiry();
+
+        $this->actingAs($this->superAdmin())
+            ->get('/admin')
+            ->assertOk()
+            ->assertSee('data-delete-url', false);
     }
 }
