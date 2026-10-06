@@ -31,7 +31,7 @@ class ContactController extends Controller
             'fullName' => ['required', 'string', 'max:255'],
             'orgName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'serviceInterest' => ['required', 'in:cement-packaging,raw-material,qa-audit,consulting'],
+            'serviceInterest' => ['required', 'in:cement-packaging,raw-material,qa-audit,consulting,job-inquiry'],
             'batchDetails' => ['nullable', 'string', 'max:5000'],
         ]);
 
@@ -58,6 +58,6 @@ class ContactController extends Controller
             ]);
         }
 
-        return back()->with('success', $successMessage);
+        return back()->with($validated['serviceInterest'] === 'job-inquiry' ? 'job_success' : 'success', $successMessage);
     }
 }

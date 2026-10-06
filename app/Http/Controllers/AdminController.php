@@ -10,6 +10,8 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    private const JOB = 'job-inquiry';
+
     private const SERVICES = [
         'cement-packaging' => 'Cement Packaging',
         'raw-material' => 'Raw Material',
@@ -48,8 +50,15 @@ class AdminController extends Controller
     {
         $search = trim((string) $request->query('q', ''));
         $service = (string) $request->query('service', '');
+        $type = $request->query('type') === 'jobs' ? 'jobs' : 'inquiries';
+        $isJobs = $type === 'jobs';
 
-        $inquiries = Inquiry::query()
+        // Job applications and service inquiries are kept in separate sections.
+        $scope = fn () => $isJobs
+            ? Inquiry::where('service_interest', self::JOB)
+            : Inquiry::where('service_interest', '!=', self::JOB);
+
+        $inquiries = $scope()
             ->when($search !== '', function ($query) use ($search) {
                 $like = '%'.$search.'%';
 
@@ -60,7 +69,7 @@ class AdminController extends Controller
                         ->orWhere('message', 'like', $like);
                 });
             })
-            ->when(array_key_exists($service, self::SERVICES), fn ($query) => $query->where('service_interest', $service))
+            ->when(! $isJobs && array_key_exists($service, self::SERVICES), fn ($query) => $query->where('service_interest', $service))
             ->latest()
             ->paginate(20)
             ->withQueryString();
@@ -75,10 +84,15 @@ class AdminController extends Controller
         return view('admin.index', [
             'inquiries' => $inquiries,
             'serviceLabels' => self::SERVICES,
+            'type' => $type,
+            'counts' => [
+                'inquiries' => Inquiry::where('service_interest', '!=', self::JOB)->count(),
+                'jobs' => Inquiry::where('service_interest', self::JOB)->count(),
+            ],
             'stats' => [
-                'total' => Inquiry::count(),
-                'today' => Inquiry::where('created_at', '>=', now()->startOfDay())->count(),
-                'week' => Inquiry::where('created_at', '>=', now()->subDays(7))->count(),
+                'total' => $scope()->count(),
+                'today' => $scope()->where('created_at', '>=', now()->startOfDay())->count(),
+                'week' => $scope()->where('created_at', '>=', now()->subDays(7))->count(),
             ],
         ]);
     }

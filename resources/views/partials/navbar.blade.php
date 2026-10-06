@@ -3,7 +3,7 @@
 
         @if (request()->routeIs('home'))
             <a href="{{ route('home') }}" class="flex shrink-0 items-center" aria-label="Sandstorm Industries home">
-                <img src="{{ asset('images/logo.svg') }}" alt="Sandstorm Industries Limited" class="h-8 w-auto object-contain">
+                <img src="{{ asset('images/logo.svg') }}" alt="Sandstorm Industries Limited" class="h-14 w-auto object-contain">
             </a>
         @endif
 

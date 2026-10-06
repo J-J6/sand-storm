@@ -5,9 +5,11 @@
 @section('content')
 @php
     $canDelete = auth()->user()->isSuperAdmin();
-    $filtered = filled(request('q')) || filled(request('service'));
+    $isJobs = ($type ?? 'inquiries') === 'jobs';
+    $typeParam = $isJobs ? ['type' => 'jobs'] : [];
+    $filtered = filled(request('q')) || (! $isJobs && filled(request('service')));
     $stats = [
-        ['label' => 'Total inquiries', 'value' => $stats['total'], 'icon' => 'inbox'],
+        ['label' => $isJobs ? 'Total applications' : 'Total inquiries', 'value' => $stats['total'], 'icon' => 'inbox'],
         ['label' => 'Received today', 'value' => $stats['today'], 'icon' => 'today'],
         ['label' => 'Last 7 days', 'value' => $stats['week'], 'icon' => 'date_range'],
     ];
@@ -19,9 +21,9 @@
         <span class="material-symbols-outlined text-[16px] text-on-tertiary-container" aria-hidden="true">lock</span>
         Private administration
     </span>
-    <h1 class="font-headline-lg text-headline-lg text-primary">Website inquiries</h1>
+    <h1 class="font-headline-lg text-headline-lg text-primary">{{ $isJobs ? 'Job applications' : 'Website inquiries' }}</h1>
     <span class="h-1 w-12 rounded-full bg-on-tertiary-container" aria-hidden="true"></span>
-    <p class="max-w-2xl text-on-surface-variant">Review and follow up on requests sent through the Sandstorm website.</p>
+    <p class="max-w-2xl text-on-surface-variant">{{ $isJobs ? 'Review job applications sent through the Join Our Team form.' : 'Review and follow up on requests sent through the Sandstorm website.' }}</p>
 </div>
 
 @if (session('status'))
@@ -30,6 +32,30 @@
         <span>{{ session('status') }}</span>
     </div>
 @endif
+
+{{-- Section switcher: service inquiries and job applications stand on their own --}}
+<div class="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-2">
+    <a href="{{ route('admin.index') }}"
+       class="flex items-center gap-space-md rounded-lg border bg-surface-container-lowest p-space-lg shadow-sm transition-colors {{ $isJobs ? 'border-outline-variant/40 hover:bg-surface-container-low' : 'border-primary ring-2 ring-primary/20' }}">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg {{ $isJobs ? 'bg-surface-container-high text-primary' : 'bg-primary text-on-primary' }}">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">inbox</span>
+        </span>
+        <div>
+            <p class="font-label-technical text-label-technical uppercase tracking-wider text-secondary">Service inquiries</p>
+            <p class="font-metric-display text-metric-display text-primary">{{ $counts['inquiries'] }}</p>
+        </div>
+    </a>
+    <a href="{{ route('admin.index', ['type' => 'jobs']) }}"
+       class="flex items-center gap-space-md rounded-lg border bg-surface-container-lowest p-space-lg shadow-sm transition-colors {{ $isJobs ? 'border-primary ring-2 ring-primary/20' : 'border-outline-variant/40 hover:bg-surface-container-low' }}">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg {{ $isJobs ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-primary' }}">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">work</span>
+        </span>
+        <div>
+            <p class="font-label-technical text-label-technical uppercase tracking-wider text-secondary">Job applications</p>
+            <p class="font-metric-display text-metric-display text-primary">{{ $counts['jobs'] }}</p>
+        </div>
+    </a>
+</div>
 
 {{-- Stat cards --}}
 <div class="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-3">
@@ -48,24 +74,29 @@
 
 {{-- Search and filter --}}
 <form method="GET" action="{{ route('admin.index') }}" class="mb-space-md flex flex-col gap-space-sm rounded-lg border border-outline-variant/40 bg-surface-container-lowest p-space-md shadow-sm md:flex-row md:items-center">
+    @if ($isJobs)
+        <input type="hidden" name="type" value="jobs">
+    @endif
     <div class="relative flex-1">
         <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-outline" aria-hidden="true">search</span>
         <input class="h-11 w-full rounded-lg border border-outline-variant bg-surface-container-lowest pl-11 pr-3 text-body-md text-on-surface placeholder:text-outline focus:outline-none"
                type="search" name="q" value="{{ request('q') }}" placeholder="Search name, organization, email or message">
     </div>
+    @unless ($isJobs)
     <select name="service" class="h-11 rounded-lg border border-outline-variant bg-surface-container-lowest px-3 text-body-md text-on-surface focus:outline-none md:w-56">
         <option value="">All services</option>
         @foreach ($serviceLabels as $value => $label)
             <option value="{{ $value }}" @selected(request('service') === $value)>{{ $label }}</option>
         @endforeach
     </select>
+    @endunless
     <div class="flex gap-space-sm">
         <button type="submit" class="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg bg-primary px-space-lg font-body-md font-medium text-on-primary transition-colors hover:bg-primary-container">
             <span class="material-symbols-outlined text-[18px]" aria-hidden="true">filter_list</span>
             Filter
         </button>
         @if ($filtered)
-            <a href="{{ route('admin.index') }}" class="inline-flex h-11 items-center justify-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant transition-colors hover:bg-surface-container-low">Clear</a>
+            <a href="{{ route('admin.index', $typeParam) }}" class="inline-flex h-11 items-center justify-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant transition-colors hover:bg-surface-container-low">Clear</a>
         @endif
     </div>
 </form>
@@ -73,7 +104,7 @@
 <div class="mb-space-sm flex flex-wrap items-center justify-between gap-space-sm">
     <p class="font-body-md text-on-surface-variant">
         Showing <span class="font-semibold text-primary">{{ $inquiries->total() }}</span>
-        {{ \Illuminate\Support\Str::plural('inquiry', $inquiries->total()) }}{{ $filtered ? ' matching your filter' : '' }}
+        {{ \Illuminate\Support\Str::plural($isJobs ? 'application' : 'inquiry', $inquiries->total()) }}{{ $filtered ? ' matching your filter' : '' }}
     </p>
     <span class="font-label-technical text-label-technical uppercase tracking-wider text-secondary">Newest first</span>
 </div>
@@ -81,8 +112,8 @@
 @if ($inquiries->isEmpty())
     <div class="rounded-lg border border-outline-variant/50 bg-surface-container-lowest px-space-lg py-space-xl text-center shadow-sm">
         <span class="material-symbols-outlined mb-space-sm text-[36px] text-secondary" aria-hidden="true">{{ $filtered ? 'search_off' : 'mail' }}</span>
-        <h2 class="font-headline-sm text-headline-sm text-primary">{{ $filtered ? 'No inquiries match your filter' : 'No inquiries yet' }}</h2>
-        <p class="mt-1 text-on-surface-variant">{{ $filtered ? 'Try a different search or clear the filter.' : 'New website requests will appear here.' }}</p>
+        <h2 class="font-headline-sm text-headline-sm text-primary">{{ $filtered ? 'Nothing matches your search' : ($isJobs ? 'No job applications yet' : 'No inquiries yet') }}</h2>
+        <p class="mt-1 text-on-surface-variant">{{ $filtered ? 'Try a different search or clear the filter.' : ($isJobs ? 'Applications from the Join Our Team form will appear here.' : 'New website requests will appear here.') }}</p>
     </div>
 @else
     {{-- Mobile cards --}}
@@ -96,6 +127,7 @@
                     </div>
                     <a class="break-all font-body-sm text-secondary underline underline-offset-2" href="mailto:{{ $inquiry->email }}">{{ $inquiry->email }}</a>
                 </div>
+                @unless ($isJobs)
                 <dl class="grid grid-cols-2 gap-space-sm py-space-sm font-body-sm">
                     <div>
                         <dt class="font-label-technical text-label-technical uppercase text-secondary">Organization</dt>
@@ -106,6 +138,7 @@
                         <dd class="mt-1 text-on-surface-variant">{{ $serviceLabels[$inquiry->service_interest] ?? $inquiry->service_interest }}</dd>
                     </div>
                 </dl>
+                @endunless
                 @if ($inquiry->message)
                     <div class="border-t border-outline-variant/40 pt-space-sm">
                         <p class="mb-1 font-label-technical text-label-technical uppercase text-secondary">Message</p>
@@ -113,7 +146,7 @@
                     </div>
                 @endif
                 <div class="mt-space-sm flex gap-space-sm border-t border-outline-variant/40 pt-space-sm">
-                    <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode('Re: your Sandstorm inquiry') }}" class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary font-body-sm font-medium text-on-primary hover:bg-primary-container">
+                    <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode($isJobs ? 'Re: your Sandstorm job application' : 'Re: your Sandstorm inquiry') }}" class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary font-body-sm font-medium text-on-primary hover:bg-primary-container">
                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">reply</span> Reply
                     </a>
                     @if ($canDelete)
@@ -129,13 +162,17 @@
 
     {{-- Desktop table --}}
     <div class="hidden overflow-x-auto rounded-lg border border-outline-variant/50 bg-surface-container-lowest shadow-sm md:block">
-        <table class="w-full min-w-[900px] border-collapse text-left">
+        <table class="w-full min-w-[700px] border-collapse text-left">
             <thead class="bg-primary text-on-primary">
                 <tr class="font-label-technical text-label-technical uppercase tracking-wider">
                     <th class="px-space-md py-space-sm font-medium">Received</th>
                     <th class="px-space-md py-space-sm font-medium">Contact</th>
+                    @unless ($isJobs)
                     <th class="px-space-md py-space-sm font-medium">Organization</th>
+                    @endunless
+                    @unless ($isJobs)
                     <th class="px-space-md py-space-sm font-medium">Service</th>
+                    @endunless
                     <th class="px-space-md py-space-sm font-medium">Message</th>
                     <th class="px-space-md py-space-sm text-right font-medium">Actions</th>
                 </tr>
@@ -153,13 +190,15 @@
                             <div class="font-medium text-primary">{{ $inquiry->full_name }}</div>
                             <a class="mt-1 block break-all text-secondary underline underline-offset-2" href="mailto:{{ $inquiry->email }}">{{ $inquiry->email }}</a>
                         </td>
+                        @unless ($isJobs)
                         <td class="break-words px-space-md py-space-md">{{ $inquiry->organization }}</td>
                         <td class="px-space-md py-space-md">
                             <span class="inline-flex rounded bg-surface-container-high px-2 py-1 text-on-surface-variant">{{ $serviceLabels[$inquiry->service_interest] ?? $inquiry->service_interest }}</span>
                         </td>
+                        @endunless
                         <td class="max-w-sm whitespace-pre-line break-words px-space-md py-space-md">{{ $inquiry->message ?: '—' }}</td>
                         <td class="whitespace-nowrap px-space-md py-space-md text-right">
-                            <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode('Re: your Sandstorm inquiry') }}" class="inline-flex h-9 items-center gap-1 rounded-lg px-space-sm font-medium text-primary hover:bg-surface-container-high">
+                            <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode($isJobs ? 'Re: your Sandstorm job application' : 'Re: your Sandstorm inquiry') }}" class="inline-flex h-9 items-center gap-1 rounded-lg px-space-sm font-medium text-primary hover:bg-surface-container-high">
                                 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">reply</span> Reply
                             </a>
                             @if ($canDelete)

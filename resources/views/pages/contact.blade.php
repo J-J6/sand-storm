@@ -70,8 +70,8 @@
             </div>
 
             {{-- Contact Form --}}
-            <div class="lg:col-span-7 h-full">
-                <div class="h-full p-space-lg md:p-space-xl bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
+            <div class="lg:col-span-7 flex flex-col gap-space-lg">
+                <div class="p-space-lg md:p-space-xl bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
                     <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-1">Testing Assessment Request</h3>
                     <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
                         Tell us what you need and we will confirm the scope, price, sample quantity and schedule before work starts. We aim to acknowledge requests within two business days. Do not include confidential technical details until confidentiality terms are agreed in writing.
@@ -95,13 +95,13 @@
                             <div class="flex flex-col gap-1">
                                 <label class="font-label-technical text-label-technical uppercase text-secondary" for="fullName">Full Name *</label>
                                 <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('fullName') border-error @enderror"
-                                       id="fullName" name="fullName" placeholder="Eng. Patrick Mwangi" required type="text" value="{{ old('fullName') }}">
+                                       id="fullName" name="fullName" autocomplete="name" placeholder="Eng. Patrick Mwangi" required type="text" value="{{ old('fullName') }}">
                                 @error('fullName') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                             </div>
                             <div class="flex flex-col gap-1">
                                 <label class="font-label-technical text-label-technical uppercase text-secondary" for="orgName">Manufacturer / Organization *</label>
                                 <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('orgName') border-error @enderror"
-                                       id="orgName" name="orgName" placeholder="Mombasa Cement Corp" required type="text" value="{{ old('orgName') }}">
+                                       id="orgName" name="orgName" autocomplete="organization" placeholder="Mombasa Cement Corp" required type="text" value="{{ old('orgName') }}">
                                 @error('orgName') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -110,11 +110,11 @@
                             <div class="flex flex-col gap-1">
                                 <label class="font-label-technical text-label-technical uppercase text-secondary" for="email">Professional Email *</label>
                                 <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('email') border-error @enderror"
-                                       id="email" name="email" placeholder="p.mwangi@organization.com" required type="email" value="{{ old('email') }}">
+                                       id="email" name="email" autocomplete="email" placeholder="p.mwangi@organization.com" required type="email" value="{{ old('email') }}">
                                 @error('email') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                             </div>
                             <div class="flex flex-col gap-1">
-                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="serviceInterest">Service Interest *</label>
+                                <span class="font-label-technical text-label-technical uppercase text-secondary">Service Interest *</span>
                                 @php
                                     $serviceOptions = [
                                         'cement-packaging' => 'Cement Bag Packaging Compliance (EAS 351)',
@@ -160,6 +160,54 @@
                                 <span class="material-symbols-outlined text-[15px] text-secondary">lock</span>
                                 <span>Please do not include confidential technical details until confidentiality terms are agreed in writing.</span>
                             </div>
+                        </div>
+                    </form>
+                </div>
+
+                {{-- Job applications --}}
+                <div id="apply" class="p-space-lg md:p-space-xl bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
+                    <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-1">Join Our Team</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
+                        Interested in working with Sandstorm? Tell us about yourself and the role you are interested in, and our team will contact you if there is a suitable opening.
+                    </p>
+
+                    @if (session('job_success'))
+                        <div class="mb-space-md p-3 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded font-label-technical text-label-technical flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">verified</span>
+                            <span>{{ session('job_success') }}</span>
+                        </div>
+                    @endif
+
+                    <form class="flex flex-col gap-space-md" method="POST" action="{{ route('contact.submit') }}#apply">
+                        @csrf
+                        <input type="hidden" name="serviceInterest" value="job-inquiry">
+                        <input type="hidden" name="orgName" value="Job applicant">
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label for="hp_check_job">Leave this field empty</label>
+                            <input type="text" id="hp_check_job" name="hp_check" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="jobFullName">Full Name *</label>
+                                <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20"
+                                       id="jobFullName" name="fullName" autocomplete="name" placeholder="Your full name" required type="text">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="jobEmail">Email *</label>
+                                <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20"
+                                       id="jobEmail" name="email" autocomplete="email" placeholder="you@example.com" required type="email">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-technical text-label-technical uppercase text-secondary" for="jobMessage">Role and About You</label>
+                            <textarea class="p-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20"
+                                      id="jobMessage" name="batchDetails" placeholder="Which role are you interested in? Briefly describe your experience and qualifications." rows="4"></textarea>
+                        </div>
+                        <div class="pt-space-sm">
+                            <button class="h-[46px] w-full inline-flex items-center justify-center gap-2 bg-on-tertiary-container hover:bg-tertiary-container text-on-primary font-headline-sm text-body-md font-semibold px-space-lg rounded transition-colors shadow-sm" type="submit">
+                                <span class="material-symbols-outlined text-[18px]">send</span>
+                                <span>Submit Application</span>
+                            </button>
                         </div>
                     </form>
                 </div>
