@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      APP_NAME: "Sandstorm Industries"
+      APP_URL: "${APP_URL:-http://localhost:8080}"
+      APP_KEY: "${APP_KEY}"
+      INQUIRY_MAIL_TO: "compliance@sandstormindustries.co.ke"
+      MAIL_MAILER: "log"
+      SESSION_SECURE_COOKIE: "${SECURE_COOKIE:-false}"
+    volumes:
+      - appdata:/data
+    restart: unless-stopped
+
+volumes:
+  appdata:
