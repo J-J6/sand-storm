@@ -23,7 +23,7 @@
         body { overscroll-behavior: none; }
         a, button, input, textarea, select, summary { transition-duration: 180ms; }
         a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible {
-            outline: 3px solid rgba(12, 140, 180, 0.4);
+            outline: 3px solid #0c8cb4;
             outline-offset: 2px;
         }
         input:not([type="radio"]), textarea, .service-picker summary {
@@ -49,7 +49,6 @@
         }
         main > :first-child { margin-top: 0 !important; }
         main > :last-child { margin-bottom: 0 !important; }
-        ::-webkit-scrollbar { display: none; }
         [data-quick-navigation] { transition: opacity 200ms ease, visibility 200ms linear; }
         [data-quick-navigation].is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         @media (prefers-reduced-motion: reduce) {

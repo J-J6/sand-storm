@@ -16,10 +16,10 @@
             <img src="{{ asset('images/logo.svg') }}" alt="Sandstorm Industries Limited" width="275" height="267" class="h-11 w-auto object-contain lg:h-14">
         </a>
 
-        <nav class="hidden items-center gap-0.5 md:flex lg:gap-1 xl:gap-space-sm" aria-label="Main navigation">
+        <nav class="hidden items-center gap-0.5 md:flex lg:gap-space-xs xl:gap-space-sm" aria-label="Main navigation">
             @foreach ($navItems as $item)
                 <a href="{{ route($item['route']) }}" @if (request()->routeIs($item['route'])) aria-current="page" @endif
-                   class="{{ request()->routeIs($item['route']) ? 'bg-primary-container text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface' }} whitespace-nowrap rounded-lg px-2.5 py-2 font-headline-sm text-[15px] font-semibold leading-6 transition-colors lg:px-3 xl:px-space-md xl:text-[17px]">{{ $item['label'] }}</a>
+                   class="{{ request()->routeIs($item['route']) ? 'bg-primary-container text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface' }} inline-flex min-h-11 items-center whitespace-nowrap rounded-lg px-2.5 py-space-sm font-headline-sm text-[15px] font-semibold leading-6 transition-colors lg:px-3 xl:px-space-md xl:text-[17px]">{{ $item['label'] }}</a>
             @endforeach
         </nav>
 

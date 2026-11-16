@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section class="w-full py-space-xl md:py-16 bg-surface">
+<section class="w-full py-space-xl md:py-section bg-surface">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
         @include('partials.page-heading', [
             'eyebrow' => 'Packaging and testing services',
@@ -12,31 +12,32 @@
             'title' => 'Choose a service and tell us what you need',
             'description' => 'We supply and assess industrial packaging for cement and other dry goods producers. Share the bag type, fill weight, quantity, destination and target date; we will confirm availability and send a written quote.',
         ])
+        <h2 class="sr-only">Before you enquire</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
-            <article class="p-space-md bg-surface-container-low rounded-lg border border-outline-variant/30"><h3 class="font-headline-sm text-body-lg font-semibold text-primary">Packaging types</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Multi-wall kraft paper and polypropylene packaging are listed capabilities. Tell us whether you need valve or open-mouth bags and your fill weight; construction and dimensions are confirmed per order.</p></article>
-            <article class="p-space-md bg-surface-container-low rounded-lg border border-outline-variant/30"><h3 class="font-headline-sm text-body-lg font-semibold text-primary">Checks and specifications</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Requests can cover material strength, moisture resistance, burst performance, drop handling and packaging compliance. We agree the applicable method and acceptance criteria with you before testing.</p></article>
-            <article class="p-space-md bg-surface-container-low rounded-lg border border-outline-variant/30"><h3 class="font-headline-sm text-body-lg font-semibold text-primary">Order size and capacity</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Minimum quantities and available capacity depend on the product and schedule. There is no fixed MOQ published here; ask for a quote with your expected monthly volume or sample count.</p></article>
-            <article class="p-space-md bg-surface-container-low rounded-lg border border-outline-variant/30"><h3 class="font-headline-sm text-body-lg font-semibold text-primary">Timing and delivery</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Lead times and delivery coverage are confirmed for each request. Mombasa is our stated operating base; include your delivery town for a service and freight check.</p></article>
+            <article class="p-space-md bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm"><h3 class="font-headline-sm text-headline-sm font-bold text-primary">Packaging types</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Multi-wall kraft paper and polypropylene packaging are listed capabilities. Tell us whether you need valve or open-mouth bags and your fill weight; construction and dimensions are confirmed per order.</p></article>
+            <article class="p-space-md bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm"><h3 class="font-headline-sm text-headline-sm font-bold text-primary">Checks and specifications</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Requests can cover material strength, moisture resistance, burst performance, drop handling and packaging compliance. We agree the applicable method and acceptance criteria with you before testing.</p></article>
+            <article class="p-space-md bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm"><h3 class="font-headline-sm text-headline-sm font-bold text-primary">Order size and capacity</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Minimum quantities and available capacity depend on the product and schedule. There is no fixed MOQ published here; ask for a quote with your expected monthly volume or sample count.</p></article>
+            <article class="p-space-md bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm"><h3 class="font-headline-sm text-headline-sm font-bold text-primary">Timing and delivery</h3><p class="font-body-sm text-body-md leading-relaxed text-on-surface-variant mt-space-xs">Lead times and delivery coverage are confirmed for each request. Mombasa is our stated operating base; include your delivery town for a service and freight check.</p></article>
         </div>
         <div class="mt-space-lg p-space-lg md:p-space-xl bg-primary text-on-primary rounded-lg lg:flex lg:items-center lg:justify-between lg:gap-space-xl">
             <div class="max-w-4xl">
-            <h3 class="font-headline-sm text-headline-sm text-on-primary font-bold">For a useful sample quote</h3>
-            <p class="font-body-md text-surface-dim mt-space-xs leading-relaxed">Include the product, bag construction or a photo, fill weight, quantity, required checks, delivery location and target date. We will reply with scope, price, sample instructions and a proposed schedule. We aim to acknowledge within two business days.</p>
+            <h2 class="font-headline-lg text-headline-xl-mobile text-on-primary sm:text-headline-lg">For a useful sample quote</h2>
+            <p class="max-w-[65ch] font-body-md text-surface-dim mt-space-xs leading-relaxed">Include the product, bag construction or a photo, fill weight, quantity, required checks, delivery location and target date. We will reply with scope, price, sample instructions and a proposed schedule. We aim to acknowledge within two business days.</p>
             </div>
-            <a class="mt-space-md inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-on-tertiary-container px-space-lg py-3 font-semibold text-on-primary transition-colors hover:bg-tertiary-container max-sm:w-full lg:mt-0" href="{{ route('contact') }}">Request a quote <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+            @include('partials.button', ['label' => 'Request a quote', 'href' => route('contact'), 'icon' => 'arrow_forward', 'class' => 'mt-space-md shrink-0 max-sm:w-full lg:mt-0'])
         </div>
     </div>
 </section>
 
 {{-- Services Section --}}
-<section class="w-full py-space-xl md:py-16 bg-surface-container-low" id="services">
+<section class="w-full py-space-xl md:py-section bg-surface-container-low" id="services">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
         <div class="flex flex-col gap-space-sm mb-space-lg md:mb-space-xl text-center items-center max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-space-sm py-1 bg-surface-container-high text-on-tertiary-container rounded">
+            <div class="inline-flex items-center gap-space-sm px-space-sm py-space-xs bg-surface-container-high text-tertiary-container rounded">
                 <span class="material-symbols-outlined text-[16px]">build_circle</span>
                 <span class="font-label-technical text-label-technical uppercase tracking-widest">OUR CORE CAPABILITIES</span>
             </div>
-            <h2 class="font-headline-xl text-headline-xl-mobile sm:text-headline-lg lg:text-headline-xl text-primary font-bold sm:font-bold lg:font-bold">
+            <h2 class="font-headline-lg text-headline-xl-mobile text-primary sm:text-headline-lg">
                 Specialized Testing, Packaging &amp; Compliance Solutions
             </h2>
             <p class="font-body-lg text-body-md sm:text-body-lg text-on-surface-variant">
@@ -83,16 +84,16 @@
                             <circle cx="16" cy="15" r="3"></circle><path d="m18.5 17.5 2 2"></path>
                         </svg>
                     </div>
-                    <div class="font-label-technical text-label-technical text-secondary mb-1">SERVICE SPEC: LAB-01</div>
+                    <div class="font-label-technical text-label-technical text-secondary mb-space-xs">SERVICE SPEC: LAB-01</div>
                     <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-space-sm">Raw Material Testing</h3>
                     <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                         Comprehensive tensile strength analysis, moisture resistance verification, and Mullen burst factor testing for industrial kraft papers and polymer liners.
                     </p>
                 </div>
-                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-1 font-label-technical text-label-technical text-secondary">
+                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-space-xs font-label-technical text-label-technical text-secondary">
                     <span>ASTM D828 / D774</span><span class="text-on-tertiary-container font-bold">VERIFIED</span>
                 </div>
-                <a class="inline-flex self-start mt-space-md font-medium text-primary underline underline-offset-4 hover:text-on-tertiary-container" href="{{ route('contact', ['service' => 'raw-material']) }}">Ask about material testing</a>
+                @include('partials.button', ['label' => 'Ask about material testing', 'variant' => 'link', 'href' => route('contact', ['service' => 'raw-material']), 'class' => 'mt-space-sm self-start text-left'])
             </div>
 
             {{-- Card 2: Cement Bag Packaging Compliance --}}
@@ -105,16 +106,16 @@
                             <path d="m8 2 8 0"></path><path d="M12 17v4m0 0-2-2m2 2 2-2"></path>
                         </svg>
                     </div>
-                    <div class="font-label-technical text-label-technical text-secondary mb-1">SERVICE SPEC: PKG-02</div>
+                    <div class="font-label-technical text-label-technical text-secondary mb-space-xs">SERVICE SPEC: PKG-02</div>
                     <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-space-sm">Cement Bag Packaging Compliance</h3>
                     <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                         Complete compliance verification under Kenyan Bureau of Standards (KEBS) and EAS 351. Drop-impact endurance, de-aeration rate, and barrier protection against coastal humidity.
                     </p>
                 </div>
-                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-1 font-label-technical text-label-technical text-secondary">
+                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-space-xs font-label-technical text-label-technical text-secondary">
                     <span>KEBS KS EAS 351</span><span class="text-on-tertiary-container font-bold">CERTIFIED</span>
                 </div>
-                <a class="inline-flex self-start mt-space-md font-medium text-primary underline underline-offset-4 hover:text-on-tertiary-container" href="{{ route('contact', ['service' => 'cement-packaging']) }}">Ask about bag packaging</a>
+                @include('partials.button', ['label' => 'Ask about bag packaging', 'variant' => 'link', 'href' => route('contact', ['service' => 'cement-packaging']), 'class' => 'mt-space-sm self-start text-left'])
             </div>
 
             {{-- Card 3: Quality Assurance & Batch Auditing --}}
@@ -126,16 +127,16 @@
                             <path d="m9 12 2 2 4-4"></path>
                         </svg>
                     </div>
-                    <div class="font-label-technical text-label-technical text-secondary mb-1">SERVICE SPEC: AUD-03</div>
+                    <div class="font-label-technical text-label-technical text-secondary mb-space-xs">SERVICE SPEC: AUD-03</div>
                     <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-space-sm">Quality Assurance &amp; Batch Auditing</h3>
                     <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                         End-to-end QA inspection protocols, statistical process control (SPC), on-site line audits, and officially certified batch conformity documentation for industrial clients.
                     </p>
                 </div>
-                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-1 font-label-technical text-label-technical text-secondary">
+                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-space-xs font-label-technical text-label-technical text-secondary">
                     <span>SPC MATRIX 4.0</span><span class="text-on-tertiary-container font-bold">AUDITED</span>
                 </div>
-                <a class="inline-flex self-start mt-space-md font-medium text-primary underline underline-offset-4 hover:text-on-tertiary-container" href="{{ route('contact', ['service' => 'qa-audit']) }}">Ask about a QA audit</a>
+                @include('partials.button', ['label' => 'Ask about a QA audit', 'variant' => 'link', 'href' => route('contact', ['service' => 'qa-audit']), 'class' => 'mt-space-sm self-start text-left'])
             </div>
 
             {{-- Card 4: Production Standards Consulting --}}
@@ -147,16 +148,16 @@
                             <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
                         </svg>
                     </div>
-                    <div class="font-label-technical text-label-technical text-secondary mb-1">SERVICE SPEC: CON-04</div>
+                    <div class="font-label-technical text-label-technical text-secondary mb-space-xs">SERVICE SPEC: CON-04</div>
                     <h3 class="font-headline-sm text-headline-sm text-primary font-bold mb-space-sm">Production Standards Consulting</h3>
                     <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                         Technical advisory on line automation, bag filling optimization, dust mitigation, and transition to eco-engineered composite packaging without sacrificing tensile strength.
                     </p>
                 </div>
-                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-1 font-label-technical text-label-technical text-secondary">
+                <div class="pt-space-md mt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-x-space-sm gap-y-space-xs font-label-technical text-label-technical text-secondary">
                     <span>ADVISORY UNIT</span><span class="text-on-tertiary-container font-bold">ACTIVE</span>
                 </div>
-                <a class="inline-flex self-start mt-space-md font-medium text-primary underline underline-offset-4 hover:text-on-tertiary-container" href="{{ route('contact', ['service' => 'consulting']) }}">Ask about consulting</a>
+                @include('partials.button', ['label' => 'Ask about consulting', 'variant' => 'link', 'href' => route('contact', ['service' => 'consulting']), 'class' => 'mt-space-sm self-start text-left'])
             </div>
 
         </div>

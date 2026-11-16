@@ -54,7 +54,9 @@ export default {
             borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
             spacing: {
                 "space-xs": "0.25rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "space-lg": "1.5rem",
-                "margin-mobile": "1rem", "margin": "3rem", "gutter": "1.5rem", "space-sm": "0.5rem", "space-xl": "2.5rem"
+                "margin-mobile": "1rem", "margin": "3rem", "gutter": "1.5rem", "space-sm": "0.5rem", "space-xl": "2.5rem",
+                // Vertical rhythm for page sections (tablet and up).
+                "section": "4rem", "section-lg": "5rem"
             },
             fontFamily: {
                 "body-lg": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],

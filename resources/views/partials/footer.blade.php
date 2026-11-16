@@ -1,5 +1,5 @@
 <footer class="w-full border-t border-outline-variant/30 bg-surface-container-low">
-    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-28 md:pb-space-xl lg:pt-14">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-28 md:pt-section md:pb-space-xl">
         <div class="grid grid-cols-1 gap-space-lg sm:grid-cols-2 sm:gap-space-xl lg:grid-cols-4 mb-space-xl">
 
             <div class="flex flex-col gap-space-sm">
@@ -13,14 +13,14 @@
 
             <div class="flex flex-col gap-space-sm">
                 <span class="font-label-technical text-label-technical uppercase tracking-widest text-on-surface">Explore the site</span>
-                <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm">
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('about') }}">About Sandstorm</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('services') }}">Packaging &amp; Tensile Testing</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Quality &amp; Metrology Standards</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Regulatory Compliance</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('contact') }}">Contact &amp; quote requests</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('privacy') }}">Privacy notice</a></li>
-                    <li class="py-0.5"><a class="text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('terms') }}">Request terms</a></li>
+                <ul class="flex flex-col font-body-sm text-body-sm">
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('about') }}">About Sandstorm</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('services') }}">Packaging &amp; Tensile Testing</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Quality &amp; Metrology Standards</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('standards') }}">Regulatory Compliance</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('contact') }}">Contact &amp; quote requests</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('privacy') }}">Privacy notice</a></li>
+                    <li><a class="inline-flex min-h-11 items-center text-on-surface-variant hover:text-on-surface transition-colors" href="{{ route('terms') }}">Request terms</a></li>
                 </ul>
             </div>
 
