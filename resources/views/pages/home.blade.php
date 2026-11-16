@@ -6,34 +6,32 @@
 @section('content')
 
 <section class="relative isolate overflow-hidden bg-primary text-on-primary" id="hero">
-    <img src="{{ asset('images/hero-facility.png') }}" alt="Industrial facility in Mikindani, Mombasa" class="absolute inset-0 -z-20 hidden h-full w-full object-cover object-center opacity-25 md:block" fetchpriority="high">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-primary/95 to-primary/55"></div>
-    <div class="absolute inset-0 -z-10 opacity-[0.08] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    {{-- Packaging photo behind the hero. Phones and tablets: along the bottom, fading up into the navy.
+         Desktop: on the right, fading left behind the headline. --}}
+    <img src="https://bulkinside.com/wp-content/uploads/2023/10/Crafters_ADSTAR_sacks_300dpi-1024x682.jpg" alt="" fetchpriority="high"
+         class="absolute bottom-0 right-0 -z-20 h-[62%] w-full object-cover opacity-80 [mask-image:linear-gradient(to_bottom,transparent,black_65%)] lg:h-full lg:w-[64%] lg:opacity-90 lg:[mask-image:linear-gradient(to_right,transparent_10%,black_75%)]">
+    <div class="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-primary via-primary/70 to-transparent lg:h-72 lg:from-primary lg:via-primary/60"></div>
+    <div class="absolute inset-0 -z-10 opacity-[0.08] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] lg:[mask-image:linear-gradient(to_right,black,transparent_60%)]"></div>
 
-    <div class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-8 px-margin-mobile py-space-xl md:px-margin md:py-section lg:min-h-[620px] lg:grid-cols-12 lg:gap-12 lg:py-section-lg">
+    <div class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-8 px-margin-mobile py-space-xl md:px-margin md:py-section lg:min-h-[640px] lg:grid-cols-12 lg:gap-space-xl lg:py-section-lg">
         <div class="flex flex-col gap-space-lg lg:col-span-6">
             <span class="inline-flex w-fit items-center gap-space-sm rounded-full border border-white/20 bg-white/10 px-space-md py-space-sm font-label-technical text-label-technical uppercase tracking-[0.18em] text-white/90"><span class="h-2 w-2 rounded-full bg-on-tertiary-container"></span> Mikindani · Mombasa, Kenya</span>
             <h1 class="max-w-2xl font-display-lg text-[34px] font-bold leading-[1.08] tracking-tight sm:text-headline-xl sm:leading-[1.06] sm:font-bold lg:text-[48px] lg:leading-[1.05] xl:text-display-lg xl:leading-[1.04]">Packaging strength you can build on.</h1>
             <p class="max-w-xl font-body-lg text-body-md leading-relaxed text-white/75 sm:text-body-lg sm:leading-relaxed">Durable cement bags, dependable quality checks and a local team ready to support your next order.</p>
             <div class="flex flex-wrap items-center gap-3 pt-space-xs">
-                @include('partials.button', ['label' => 'Explore our services', 'href' => route('services'), 'icon' => 'arrow_forward', 'class' => 'max-sm:w-full'])
-
+                @include('partials.button', ['label' => 'Explore our services', 'href' => route('services'), 'icon' => 'arrow_forward', 'class' => 'max-sm:w-full lg:min-h-14 lg:px-space-xl lg:text-body-lg lg:font-semibold'])
             </div>
-            <div class="mt-space-md flex flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-5 text-sm text-white/75">
+            <div class="mt-space-md flex max-w-xl flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-5 text-sm text-white/75 lg:text-body-md">
                 <span class="inline-flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" aria-hidden="true">verified</span>Batch quality checks</span>
                 <span class="inline-flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" aria-hidden="true">location_on</span>Close to Mombasa port</span>
             </div>
         </div>
-        <div class="relative lg:col-span-6">
-            <div class="absolute -inset-2 rounded-3xl border border-white/10 sm:-inset-4"></div>
-            <div class="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 shadow-2xl">
-                <img src="https://bulkinside.com/wp-content/uploads/2023/10/Crafters_ADSTAR_sacks_300dpi-1024x682.jpg" alt="Finished cement sacks moving through an industrial packaging line" class="h-[240px] w-full object-cover sm:h-[390px] lg:h-[430px]" fetchpriority="high">
-                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-space-lg pt-20 sm:p-8 sm:pt-24 lg:pb-14">
-                    <p class="font-label-technical text-xs uppercase tracking-[0.2em] text-white/70">Packaging built for the journey</p>
-                    <p class="mt-space-sm max-w-md font-headline-sm text-xl font-semibold text-white sm:text-2xl">From production floor to your site.</p>
-                </div>
+        <div class="relative lg:col-span-5 lg:col-start-8 lg:flex lg:flex-col lg:items-end lg:self-end lg:text-right">
+            <div class="pt-40 drop-shadow-[0_2px_10px_rgba(2,38,52,0.9)] lg:pt-0">
+                <p class="font-label-technical text-xs uppercase tracking-[0.2em] text-white/80">Packaging built for the journey</p>
+                <p class="mt-space-sm font-headline-sm text-xl font-semibold text-white lg:text-headline-xl-mobile lg:font-semibold">From production floor to your site.</p>
             </div>
-            <div class="relative z-10 ml-space-md mt-3 flex w-fit items-center gap-3 rounded-xl bg-surface px-space-md py-3 text-primary shadow-xl lg:absolute lg:-bottom-5 lg:left-8 lg:ml-0 lg:mt-0"><span class="material-symbols-outlined text-2xl text-on-tertiary-container" aria-hidden="true">precision_manufacturing</span><span><span class="block text-xs uppercase tracking-wider text-on-surface-variant">Focused on</span><span class="block font-semibold">Reliable packaging</span></span></div>
+            <div class="relative z-10 mt-space-md flex w-fit items-center gap-3 rounded-xl bg-surface px-space-md py-3 text-left text-primary shadow-xl"><span class="material-symbols-outlined text-2xl text-on-tertiary-container" aria-hidden="true">precision_manufacturing</span><span><span class="block text-xs uppercase tracking-wider text-on-surface-variant">Focused on</span><span class="block font-semibold">Reliable packaging</span></span></div>
         </div>
     </div>
 </section>
