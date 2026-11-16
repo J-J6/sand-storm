@@ -1,46 +1,40 @@
-<header class="{{ request()->routeIs('home') ? '' : 'hidden xl:block' }} fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
-    <div class="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-sm md:gap-space-md">
+@php
+    $navItems = [
+        ['route' => 'home', 'label' => 'Home', 'short' => 'Home', 'icon' => 'home'],
+        ['route' => 'about', 'label' => 'About', 'short' => 'About', 'icon' => 'domain'],
+        ['route' => 'services', 'label' => 'Services', 'short' => 'Services', 'icon' => 'precision_manufacturing'],
+        ['route' => 'standards', 'label' => 'Quality Standards', 'short' => 'Standards', 'icon' => 'verified'],
+        ['route' => 'contact', 'label' => 'Contact', 'short' => 'Contact', 'icon' => 'mail'],
+    ];
+@endphp
 
-        @if (request()->routeIs('home'))
-            <a href="{{ route('home') }}" class="flex shrink-0 items-center" aria-label="Sandstorm Industries home">
-                <img src="{{ asset('images/logo.svg') }}" alt="Sandstorm Industries Limited" class="h-14 w-auto object-contain">
-            </a>
-        @endif
+{{-- Top bar: logo on every page. Links appear from tablet width up; phones use the quick navigation below. --}}
+<header class="fixed top-0 z-50 w-full bg-surface-container-lowest/95 shadow-[0_1px_8px_rgba(0,0,0,0.06)] backdrop-blur-md">
+    <div class="mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-space-sm px-margin-mobile md:gap-space-md md:px-margin lg:h-20">
 
-        <nav class="hidden xl:flex items-center gap-space-lg">
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:text-on-surface' }} font-headline-sm text-headline-sm transition-colors py-space-xs px-space-sm rounded-lg">Home</a>
-            <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:text-on-surface' }} font-headline-sm text-headline-sm transition-colors py-space-xs px-space-sm rounded-lg">About</a>
-            <a href="{{ route('services') }}" class="{{ request()->routeIs('services') ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:text-on-surface' }} font-headline-sm text-headline-sm transition-colors py-space-xs px-space-sm rounded-lg">Services</a>
-            <a href="{{ route('standards') }}" class="{{ request()->routeIs('standards') ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:text-on-surface' }} font-headline-sm text-headline-sm transition-colors py-space-xs px-space-sm rounded-lg">Quality Standards</a>
-            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:text-on-surface' }} font-headline-sm text-headline-sm transition-colors py-space-xs px-space-sm rounded-lg">Contact</a>
+        <a href="{{ route('home') }}" class="flex shrink-0 items-center" aria-label="Sandstorm Industries home">
+            <img src="{{ asset('images/logo.svg') }}" alt="Sandstorm Industries Limited" width="275" height="267" class="h-11 w-auto object-contain lg:h-14">
+        </a>
+
+        <nav class="hidden items-center gap-0.5 md:flex lg:gap-1 xl:gap-space-sm" aria-label="Main navigation">
+            @foreach ($navItems as $item)
+                <a href="{{ route($item['route']) }}" @if (request()->routeIs($item['route'])) aria-current="page" @endif
+                   class="{{ request()->routeIs($item['route']) ? 'bg-primary-container text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface' }} whitespace-nowrap rounded-lg px-2.5 py-2 font-headline-sm text-[15px] font-semibold leading-6 transition-colors lg:px-3 xl:px-space-md xl:text-[17px]">{{ $item['label'] }}</a>
+            @endforeach
         </nav>
 
-        <div class="hidden xl:flex items-center gap-space-md shrink-0">
-            <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 bg-on-tertiary-container hover:bg-tertiary-container text-on-primary font-headline-sm text-body-md font-semibold px-space-lg py-space-sm rounded-lg transition-colors">Inquire Now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        <div class="flex shrink-0 items-center md:hidden lg:flex">
+            <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-on-tertiary-container px-space-md py-2 font-headline-sm text-body-sm font-semibold text-on-primary transition-colors hover:bg-tertiary-container lg:px-space-lg lg:py-space-sm lg:text-body-md">Inquire Now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
         </div>
 
     </div>
 </header>
 
-<nav class="fixed bottom-10 left-1/2 z-50 grid w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 grid-cols-5 rounded-2xl border border-white/70 bg-white/90 p-1.5 shadow-[0_12px_32px_rgba(8,14,21,0.2)] backdrop-blur-xl xl:hidden" aria-label="Quick navigation" data-quick-navigation>
-    <a href="{{ route('home') }}" aria-current="{{ request()->routeIs('home') ? 'page' : 'false' }}" class="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs('home') ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
-        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">home</span>
-        <span class="text-[10px] font-semibold leading-none">Home</span>
-    </a>
-    <a href="{{ route('about') }}" aria-current="{{ request()->routeIs('about') ? 'page' : 'false' }}" class="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs('about') ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
-        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">domain</span>
-        <span class="text-[10px] font-semibold leading-none">About</span>
-    </a>
-    <a href="{{ route('services') }}" aria-current="{{ request()->routeIs('services') ? 'page' : 'false' }}" class="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs('services') ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
-        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">precision_manufacturing</span>
-        <span class="text-[10px] font-semibold leading-none">Services</span>
-    </a>
-    <a href="{{ route('standards') }}" aria-current="{{ request()->routeIs('standards') ? 'page' : 'false' }}" class="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs('standards') ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
-        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">verified</span>
-        <span class="text-[10px] font-semibold leading-none">Standards</span>
-    </a>
-    <a href="{{ route('contact') }}" aria-current="{{ request()->routeIs('contact') ? 'page' : 'false' }}" class="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs('contact') ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
-        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">mail</span>
-        <span class="text-[10px] font-semibold leading-none">Contact</span>
-    </a>
+<nav class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-50 grid w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 grid-cols-5 rounded-2xl border border-white/70 bg-white/90 p-1.5 shadow-[0_12px_32px_rgba(8,14,21,0.2)] backdrop-blur-xl md:hidden" aria-label="Quick navigation" data-quick-navigation>
+    @foreach ($navItems as $item)
+        <a href="{{ route($item['route']) }}" aria-current="{{ request()->routeIs($item['route']) ? 'page' : 'false' }}" class="flex min-h-14 min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl {{ request()->routeIs($item['route']) ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-low' }} transition-colors">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">{{ $item['icon'] }}</span>
+            <span class="text-[10px] font-semibold leading-none">{{ $item['short'] }}</span>
+        </a>
+    @endforeach
 </nav>

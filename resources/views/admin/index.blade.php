@@ -34,9 +34,9 @@
 @endif
 
 {{-- Section switcher: service inquiries and job applications stand on their own --}}
-<div class="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-2">
+<div class="mb-space-md grid grid-cols-2 gap-space-sm sm:mb-space-lg sm:gap-space-md">
     <a href="{{ route('admin.index') }}"
-       class="flex items-center gap-space-md rounded-lg border bg-surface-container-lowest p-space-lg shadow-sm transition-colors {{ $isJobs ? 'border-outline-variant/40 hover:bg-surface-container-low' : 'border-primary ring-2 ring-primary/20' }}">
+       class="flex flex-col items-start gap-space-sm rounded-lg border bg-surface-container-lowest p-space-md shadow-sm transition-colors sm:flex-row sm:items-center sm:gap-space-md sm:p-space-lg {{ $isJobs ? 'border-outline-variant/40 hover:bg-surface-container-low' : 'border-primary ring-2 ring-primary/20' }}">
         <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg {{ $isJobs ? 'bg-surface-container-high text-primary' : 'bg-primary text-on-primary' }}">
             <span class="material-symbols-outlined text-[22px]" aria-hidden="true">inbox</span>
         </span>
@@ -46,7 +46,7 @@
         </div>
     </a>
     <a href="{{ route('admin.index', ['type' => 'jobs']) }}"
-       class="flex items-center gap-space-md rounded-lg border bg-surface-container-lowest p-space-lg shadow-sm transition-colors {{ $isJobs ? 'border-primary ring-2 ring-primary/20' : 'border-outline-variant/40 hover:bg-surface-container-low' }}">
+       class="flex flex-col items-start gap-space-sm rounded-lg border bg-surface-container-lowest p-space-md shadow-sm transition-colors sm:flex-row sm:items-center sm:gap-space-md sm:p-space-lg {{ $isJobs ? 'border-primary ring-2 ring-primary/20' : 'border-outline-variant/40 hover:bg-surface-container-low' }}">
         <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg {{ $isJobs ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-primary' }}">
             <span class="material-symbols-outlined text-[22px]" aria-hidden="true">work</span>
         </span>
@@ -58,14 +58,14 @@
 </div>
 
 {{-- Stat cards --}}
-<div class="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-3">
+<div class="mb-space-md grid grid-cols-3 gap-space-sm sm:mb-space-lg sm:gap-space-md">
     @foreach ($stats as $stat)
-        <div class="flex items-center gap-space-md rounded-lg border border-outline-variant/40 bg-surface-container-lowest p-space-lg shadow-sm">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary">
+        <div class="flex min-w-0 items-center gap-space-md rounded-lg border border-outline-variant/40 bg-surface-container-lowest p-3 shadow-sm sm:p-space-md lg:p-space-lg">
+            <span class="hidden h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary md:flex">
                 <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{{ $stat['icon'] }}</span>
             </span>
-            <div>
-                <p class="font-label-technical text-label-technical uppercase tracking-wider text-secondary">{{ $stat['label'] }}</p>
+            <div class="min-w-0">
+                <p class="break-words font-label-technical text-[10px] uppercase leading-4 tracking-normal text-secondary sm:text-label-technical sm:tracking-wider">{{ $stat['label'] }}</p>
                 <p class="font-metric-display text-metric-display text-primary">{{ $stat['value'] }}</p>
             </div>
         </div>
@@ -91,7 +91,7 @@
     </select>
     @endunless
     <div class="flex gap-space-sm">
-        <button type="submit" class="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg bg-primary px-space-lg font-body-md font-medium text-on-primary transition-colors hover:bg-primary-container">
+        <button type="submit" class="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary px-space-lg md:flex-none font-body-md font-medium text-on-primary transition-colors hover:bg-primary-container">
             <span class="material-symbols-outlined text-[18px]" aria-hidden="true">filter_list</span>
             Filter
         </button>
@@ -117,12 +117,12 @@
     </div>
 @else
     {{-- Mobile cards --}}
-    <div class="space-y-space-sm md:hidden">
+    <div class="grid grid-cols-1 gap-space-sm md:grid-cols-2 md:gap-space-md lg:hidden">
         @foreach ($inquiries as $inquiry)
-            <article class="rounded-lg border border-outline-variant/50 bg-surface-container-lowest p-space-md shadow-sm">
+            <article class="flex min-w-0 flex-col rounded-lg border border-outline-variant/50 bg-surface-container-lowest p-space-md shadow-sm">
                 <div class="flex flex-col gap-1 border-b border-outline-variant/40 pb-space-sm">
                     <div class="flex flex-wrap items-start justify-between gap-2">
-                        <h2 class="font-headline-sm text-headline-sm text-primary">{{ $inquiry->full_name }}</h2>
+                        <h2 class="min-w-0 break-words font-headline-sm text-headline-sm text-primary">{{ $inquiry->full_name }}</h2>
                         <time class="font-label-technical text-label-technical text-secondary" datetime="{{ $inquiry->created_at->toIso8601String() }}">{{ $inquiry->created_at->format('M j, Y · H:i') }}</time>
                     </div>
                     <a class="break-all font-body-sm text-secondary underline underline-offset-2" href="mailto:{{ $inquiry->email }}">{{ $inquiry->email }}</a>
@@ -131,7 +131,7 @@
                 <dl class="grid grid-cols-2 gap-space-sm py-space-sm font-body-sm">
                     <div>
                         <dt class="font-label-technical text-label-technical uppercase text-secondary">Organization</dt>
-                        <dd class="mt-1 text-on-surface-variant">{{ $inquiry->organization }}</dd>
+                        <dd class="mt-1 break-words text-on-surface-variant">{{ $inquiry->organization }}</dd>
                     </div>
                     <div>
                         <dt class="font-label-technical text-label-technical uppercase text-secondary">Service</dt>
@@ -140,12 +140,12 @@
                 </dl>
                 @endunless
                 @if ($inquiry->message)
-                    <div class="border-t border-outline-variant/40 pt-space-sm">
+                    <div class="border-t border-outline-variant/40 py-space-sm">
                         <p class="mb-1 font-label-technical text-label-technical uppercase text-secondary">Message</p>
                         <p class="whitespace-pre-line break-words font-body-sm text-on-surface-variant">{{ $inquiry->message }}</p>
                     </div>
                 @endif
-                <div class="mt-space-sm flex gap-space-sm border-t border-outline-variant/40 pt-space-sm">
+                <div class="mt-auto flex gap-space-sm border-t border-outline-variant/40 pt-space-sm">
                     <a href="mailto:{{ $inquiry->email }}?subject={{ rawurlencode($isJobs ? 'Re: your Sandstorm job application' : 'Re: your Sandstorm inquiry') }}" class="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary font-body-sm font-medium text-on-primary hover:bg-primary-container">
                         <span class="material-symbols-outlined text-[18px]" aria-hidden="true">reply</span> Reply
                     </a>
@@ -161,7 +161,7 @@
     </div>
 
     {{-- Desktop table --}}
-    <div class="hidden overflow-x-auto rounded-lg border border-outline-variant/50 bg-surface-container-lowest shadow-sm md:block">
+    <div class="hidden overflow-x-auto rounded-lg border border-outline-variant/50 bg-surface-container-lowest shadow-sm lg:block">
         <table class="w-full min-w-[700px] border-collapse text-left">
             <thead class="bg-primary text-on-primary">
                 <tr class="font-label-technical text-label-technical uppercase tracking-wider">
@@ -236,7 +236,7 @@
                     </p>
                 </div>
             </div>
-            <div class="flex justify-end gap-space-sm">
+            <div class="flex flex-wrap justify-end gap-space-sm">
                 <button type="button" data-delete-cancel class="inline-flex h-10 items-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
                 <button type="submit" class="inline-flex h-10 items-center gap-1.5 rounded-lg bg-error px-space-md font-body-md font-semibold text-on-error hover:opacity-90">
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">delete</span> Delete permanently

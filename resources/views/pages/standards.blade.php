@@ -5,7 +5,7 @@
 @section('content')
 
 {{-- Why Choose Us / Quality Standards Section --}}
-<section class="w-full py-space-xl bg-surface" id="standards">
+<section class="w-full py-space-xl md:py-16 bg-surface" id="standards">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
         @include('partials.page-heading', [
             'eyebrow' => 'Quality and standards',
@@ -14,9 +14,9 @@
             'description' => 'We agree the applicable packaging requirements, test method and acceptance criteria with each customer before work starts.',
         ])
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md md:gap-space-lg">
 
-            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md">
+            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md md:grid md:grid-cols-[auto_1fr] md:gap-x-space-lg lg:flex">
                 <div class="w-16 h-16 rounded bg-surface-container-low flex items-center justify-center text-primary">
                     <svg class="w-9 h-9 text-on-tertiary-container" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24">
                         <path d="M12 3v18"></path><path d="m19 8 3 3-3 3"></path><path d="m5 8-3 3 3 3"></path>
@@ -30,7 +30,7 @@
                         Strict adherence to national and international packaging regulations, ensuring zero shipment rejections, certified tare weights, and full KEBS compliance traceability for heavy building materials across East Africa.
                     </p>
                 </div>
-                <div class="mt-auto pt-space-sm">
+                <div class="mt-auto pt-space-sm md:col-start-2 md:pt-0 lg:pt-space-sm">
                     <ul class="flex flex-col gap-1.5 font-label-technical text-label-technical text-secondary">
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Zero Port-Hold Penalties</span></li>
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Certified Tare Weight Verification</span></li>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md">
+            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md md:grid md:grid-cols-[auto_1fr] md:gap-x-space-lg lg:flex">
                 <div class="w-16 h-16 rounded bg-surface-container-low flex items-center justify-center text-primary">
                     <svg class="w-9 h-9 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -52,7 +52,7 @@
                         Headquartered in Mikindani, Mombasa County. Positioned at Kenya's primary maritime and transit hub to offer rapid turnaround, local supply chain resilience, and regional support across the Northern Transport Corridor.
                     </p>
                 </div>
-                <div class="mt-auto pt-space-sm">
+                <div class="mt-auto pt-space-sm md:col-start-2 md:pt-0 lg:pt-space-sm">
                     <ul class="flex flex-col gap-1.5 font-label-technical text-label-technical text-secondary">
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Direct Access to SGR Freight Rail</span></li>
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Kilindini Port Rapid Clearance</span></li>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md">
+            <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-md md:grid md:grid-cols-[auto_1fr] md:gap-x-space-lg lg:flex">
                 <div class="w-16 h-16 rounded bg-surface-container-low flex items-center justify-center text-primary">
                     <svg class="w-9 h-9 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewBox="0 0 24 24">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -74,7 +74,7 @@
                         Continuous stress-cycle monitoring, pneumatic burst testing, drop-tower verification, and sealed batch archiving for uncompromising structural security that eliminates bag tears during mechanized loading.
                     </p>
                 </div>
-                <div class="mt-auto pt-space-sm">
+                <div class="mt-auto pt-space-sm md:col-start-2 md:pt-0 lg:pt-space-sm">
                     <ul class="flex flex-col gap-1.5 font-label-technical text-label-technical text-secondary">
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Calibrated Pneumatic Drop Towers</span></li>
                         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-emerald-700">check_circle</span><span>Digital Micro-porosity Profilers</span></li>
@@ -88,52 +88,65 @@
 </section>
 
 {{-- Live Laboratory Test Matrix Ledger --}}
-<section class="w-full bg-primary-container text-on-primary py-space-lg">
+@php
+    $ledger = [
+        ['id' => 'BATCH-2025-0814A', 'substrate' => '3-Ply Clupak Extensible Kraft', 'pressure' => '485 kPa', 'drop' => '1.80m / 5-cycle', 'porosity' => '14.2 s/100ml', 'status' => 'PASSED KEBS', 'tone' => 'bg-emerald-950 text-emerald-400'],
+        ['id' => 'BATCH-2025-0814B', 'substrate' => 'Polypropylene Woven + PE Film', 'pressure' => '620 kPa', 'drop' => '2.00m / 7-cycle', 'porosity' => 'Hermetic Seal', 'status' => 'PASSED ISO', 'tone' => 'bg-emerald-950 text-emerald-400'],
+        ['id' => 'BATCH-2025-0815A', 'substrate' => 'Recycled Heavy-Duty Composite', 'pressure' => '430 kPa', 'drop' => '1.50m / 4-cycle', 'porosity' => '16.8 s/100ml', 'status' => 'IN CALIBRATION', 'tone' => 'bg-amber-950 text-amber-400'],
+    ];
+@endphp
+<section class="w-full bg-primary-container text-on-primary py-space-lg md:py-space-xl">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-        <div class="p-space-lg bg-primary rounded-lg shadow-inner overflow-x-auto">
+        <div class="p-space-md sm:p-space-lg bg-primary rounded-lg shadow-inner">
             <div class="flex flex-col md:flex-row md:items-center justify-between pb-space-sm mb-space-sm border-b border-surface-container-highest/20 gap-space-xs">
                 <div class="flex items-center gap-space-sm">
-                    <span class="w-2.5 h-2.5 rounded-full bg-on-tertiary-container"></span>
+                    <span class="w-2.5 h-2.5 shrink-0 rounded-full bg-on-tertiary-container"></span>
                     <span class="font-headline-sm text-body-md uppercase tracking-wider text-surface-bright">Live Laboratory Test Matrix Ledger</span>
                 </div>
                 <span class="font-label-technical text-label-technical text-outline">UPDATED HOURLY &bull; FACILITY TERMINAL 03</span>
             </div>
-            <table class="w-full text-left font-label-technical text-label-technical border-collapse">
+
+            {{-- Phones and small tablets: one card per specimen --}}
+            <div class="flex flex-col divide-y divide-surface-container-highest/10 lg:hidden">
+                @foreach ($ledger as $row)
+                    <div class="py-space-md first:pt-space-xs last:pb-0 font-label-technical text-label-technical text-surface-dim">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="font-mono text-surface-bright">{{ $row['id'] }}</span>
+                            <span class="px-2 py-0.5 rounded {{ $row['tone'] }}">{{ $row['status'] }}</span>
+                        </div>
+                        <p class="mt-1.5">{{ $row['substrate'] }}</p>
+                        <dl class="mt-space-sm grid grid-cols-1 gap-space-sm min-[420px]:grid-cols-3">
+                            <div><dt class="text-secondary-fixed">PRESSURE RESISTANCE</dt><dd class="mt-0.5 font-mono">{{ $row['pressure'] }}</dd></div>
+                            <div><dt class="text-secondary-fixed">DROP HEIGHT TEST</dt><dd class="mt-0.5 font-mono">{{ $row['drop'] }}</dd></div>
+                            <div><dt class="text-secondary-fixed">POROSITY RATING</dt><dd class="mt-0.5 font-mono">{{ $row['porosity'] }}</dd></div>
+                        </dl>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Laptop and desktop: full table --}}
+            <table class="hidden w-full text-left font-label-technical text-label-technical border-collapse lg:table">
                 <thead>
                     <tr class="text-secondary-fixed bg-surface-container-highest/10">
-                        <th class="p-2">SPECIMEN ID</th>
-                        <th class="p-2">SUBSTRATE TYPE</th>
-                        <th class="p-2">PRESSURE RESISTANCE</th>
-                        <th class="p-2">DROP HEIGHT TEST</th>
-                        <th class="p-2">POROSITY RATING</th>
-                        <th class="p-2">VERIFICATION STATUS</th>
+                        <th class="p-2.5">SPECIMEN ID</th>
+                        <th class="p-2.5">SUBSTRATE TYPE</th>
+                        <th class="p-2.5">PRESSURE RESISTANCE</th>
+                        <th class="p-2.5">DROP HEIGHT TEST</th>
+                        <th class="p-2.5">POROSITY RATING</th>
+                        <th class="p-2.5">VERIFICATION STATUS</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-surface-container-highest/10 text-surface-dim">
-                    <tr>
-                        <td class="p-2 font-mono text-surface-bright">BATCH-2025-0814A</td>
-                        <td class="p-2">3-Ply Clupak Extensible Kraft</td>
-                        <td class="p-2 font-mono">485 kPa</td>
-                        <td class="p-2 font-mono">1.80m / 5-cycle</td>
-                        <td class="p-2 font-mono">14.2 s/100ml</td>
-                        <td class="p-2"><span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded">PASSED KEBS</span></td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 font-mono text-surface-bright">BATCH-2025-0814B</td>
-                        <td class="p-2">Polypropylene Woven + PE Film</td>
-                        <td class="p-2 font-mono">620 kPa</td>
-                        <td class="p-2 font-mono">2.00m / 7-cycle</td>
-                        <td class="p-2 font-mono">Hermetic Seal</td>
-                        <td class="p-2"><span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded">PASSED ISO</span></td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 font-mono text-surface-bright">BATCH-2025-0815A</td>
-                        <td class="p-2">Recycled Heavy-Duty Composite</td>
-                        <td class="p-2 font-mono">430 kPa</td>
-                        <td class="p-2 font-mono">1.50m / 4-cycle</td>
-                        <td class="p-2 font-mono">16.8 s/100ml</td>
-                        <td class="p-2"><span class="px-2 py-0.5 bg-amber-950 text-amber-400 rounded">IN CALIBRATION</span></td>
-                    </tr>
+                    @foreach ($ledger as $row)
+                        <tr>
+                            <td class="p-2.5 font-mono text-surface-bright whitespace-nowrap">{{ $row['id'] }}</td>
+                            <td class="p-2.5">{{ $row['substrate'] }}</td>
+                            <td class="p-2.5 font-mono whitespace-nowrap">{{ $row['pressure'] }}</td>
+                            <td class="p-2.5 font-mono whitespace-nowrap">{{ $row['drop'] }}</td>
+                            <td class="p-2.5 font-mono whitespace-nowrap">{{ $row['porosity'] }}</td>
+                            <td class="p-2.5"><span class="inline-block whitespace-nowrap px-2 py-0.5 rounded {{ $row['tone'] }}">{{ $row['status'] }}</span></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -91,7 +91,7 @@
         <ul class="divide-y divide-outline-variant/40 rounded-lg border border-outline-variant/50 bg-surface-container-lowest shadow-sm">
             @foreach ($users as $user)
                 @php $isMe = $user->is($me); @endphp
-                <li class="flex flex-col gap-space-sm p-space-md lg:flex-row lg:items-center lg:justify-between">
+                <li class="flex flex-col gap-space-sm p-space-md xl:flex-row xl:items-center xl:justify-between">
                     <div class="min-w-0">
                         <div class="flex flex-wrap items-center gap-2">
                             <span class="font-headline-sm text-body-md font-semibold text-primary">{{ $user->name }}</span>
@@ -106,7 +106,7 @@
                         <p class="mt-1 font-label-technical text-label-technical text-outline">Added {{ $user->created_at?->format('M j, Y') ?? '—' }}</p>
                     </div>
 
-                    <div class="flex flex-wrap gap-space-sm">
+                    <div class="flex flex-wrap gap-space-sm xl:shrink-0 xl:justify-end">
                         <button type="button" data-reset-url="{{ route('admin.users.password', $user) }}" data-reset-name="{{ $user->name }}"
                                 class="inline-flex h-9 items-center gap-1 rounded-lg border border-outline-variant px-space-sm font-body-sm text-body-sm font-medium text-primary hover:bg-surface-container-low">
                             <span class="material-symbols-outlined text-[18px]" aria-hidden="true">key</span> Reset password
@@ -160,7 +160,7 @@
                 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">autorenew</span> Generate
             </button>
         </div>
-        <div class="flex justify-end gap-space-sm">
+        <div class="flex flex-wrap justify-end gap-space-sm">
             <button type="button" data-dialog-cancel class="inline-flex h-10 items-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
             <button type="submit" class="inline-flex h-10 items-center gap-1.5 rounded-lg bg-primary px-space-md font-body-md font-semibold text-on-primary hover:bg-primary-container">
                 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">key</span> Save password
@@ -184,7 +184,7 @@
                 <p class="mt-1 text-body-md text-on-surface-variant" id="confirm-text"></p>
             </div>
         </div>
-        <div class="flex justify-end gap-space-sm">
+        <div class="flex flex-wrap justify-end gap-space-sm">
             <button type="button" data-dialog-cancel class="inline-flex h-10 items-center rounded-lg border border-outline-variant px-space-md font-body-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
             <button type="submit" id="confirm-submit" class="inline-flex h-10 items-center rounded-lg bg-error px-space-md font-body-md font-semibold text-on-error hover:opacity-90"></button>
         </div>

@@ -1,11 +1,11 @@
-<footer class="w-full bg-surface-container-low mt-space-xl">
-    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-32 xl:pb-space-xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl mb-space-xl">
+<footer class="w-full border-t border-outline-variant/30 bg-surface-container-low">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-28 md:pb-space-xl lg:pt-14">
+        <div class="grid grid-cols-1 gap-space-lg sm:grid-cols-2 sm:gap-space-xl lg:grid-cols-4 mb-space-xl">
 
             <div class="flex flex-col gap-space-sm">
                 <span class="font-headline-sm text-headline-sm text-primary uppercase">Sandstorm Industries Limited</span>
                 <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Precision Manufacturing &amp; Packaging Compliance Standards in Coast Region. Industrial rigor, metrology validation, and materials testing operating out of Mikindani, Mombasa.</p>
-                <div class="flex items-center gap-space-xs mt-space-sm">
+                <div class="flex flex-wrap items-center gap-space-xs mt-space-sm">
                     <span class="inline-block px-space-sm py-space-xs bg-surface-container text-on-secondary-container font-label-technical text-label-technical rounded">KEBS ACCREDITED</span>
                     <span class="inline-block px-space-sm py-space-xs bg-surface-container text-on-secondary-container font-label-technical text-label-technical rounded">EAS CERTIFIED</span>
                 </div>
@@ -44,9 +44,9 @@
 
         </div>
 
-        <div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant">
-            <p class="text-center md:text-left">&copy; {{ date('Y') }} Sandstorm Industries Limited. All rights reserved. Compliant with KEBS &amp; East African Industrial Standards.</p>
-            <div class="flex items-center gap-space-lg font-label-technical text-label-technical uppercase">
+        <div class="pt-space-lg border-t border-outline-variant/40 flex flex-col lg:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+            <p class="text-center lg:text-left">&copy; {{ date('Y') }} Sandstorm Industries Limited. All rights reserved. Compliant with KEBS &amp; East African Industrial Standards.</p>
+            <div class="flex flex-wrap items-center justify-center gap-x-space-lg gap-y-space-xs whitespace-nowrap font-label-technical text-label-technical uppercase">
                 <span class="text-on-surface-variant">ISO 9001:2015</span>
                 <span class="text-on-surface-variant">KEBS CD/432</span>
                 <span class="text-on-surface-variant">EAS 351</span>

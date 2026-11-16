@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}">
@@ -18,7 +18,7 @@
 
     @include('partials.navbar')
 
-    <main class="w-full {{ request()->routeIs('home') ? 'pt-20' : 'pt-0 xl:pt-20' }} pb-24 xl:pb-0 bg-surface min-h-[calc(100vh-80px)]">
+    <main class="w-full pt-16 lg:pt-20 bg-surface min-h-[calc(100vh-80px)]">
         <div class="flex flex-col w-full">
             @yield('content')
         </div>

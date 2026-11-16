@@ -23,15 +23,15 @@
         body { overscroll-behavior: none; }
         a, button, input, textarea, select, summary { transition-duration: 180ms; }
         a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible {
-            outline: 3px solid rgba(222, 104, 36, 0.35);
+            outline: 3px solid rgba(12, 140, 180, 0.4);
             outline-offset: 2px;
         }
         input:not([type="radio"]), textarea, .service-picker summary {
             transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
         }
         input:not([type="radio"]):focus, textarea:focus, .service-picker[open] summary {
-            border-color: #de6824;
-            box-shadow: 0 0 0 3px rgba(222, 104, 36, 0.12);
+            border-color: #0c8cb4;
+            box-shadow: 0 0 0 3px rgba(12, 140, 180, 0.14);
         }
         .service-picker[open] fieldset { animation: picker-in 140ms ease-out; }
         @keyframes picker-in {
@@ -40,6 +40,12 @@
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 5.5rem; }
+        img, svg, video { max-width: 100%; }
+        /* Phones zoom the page when a focused field is smaller than 16px. */
+        @media (max-width: 767px) {
+            input:not([type="radio"]):not([type="checkbox"]), textarea, select { font-size: 16px !important; }
         }
         main > :first-child { margin-top: 0 !important; }
         main > :last-child { margin-bottom: 0 !important; }

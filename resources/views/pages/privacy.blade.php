@@ -3,7 +3,7 @@
 @section('title', 'Privacy Notice — Sandstorm Industries')
 
 @section('content')
-<section class="w-full py-space-xl bg-surface">
+<section class="w-full py-space-xl md:py-16 bg-surface">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
         @include('partials.page-heading', [
             'eyebrow' => 'Privacy notice',
