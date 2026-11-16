@@ -16,7 +16,7 @@
             <h1 class="max-w-2xl font-display-lg text-[34px] font-bold leading-[1.08] tracking-tight sm:text-headline-xl sm:leading-[1.06] sm:font-bold lg:text-[48px] lg:leading-[1.05] xl:text-display-lg xl:leading-[1.04]">Packaging strength you can build on.</h1>
             <p class="max-w-xl font-body-lg text-body-md leading-relaxed text-white/75 sm:text-body-lg sm:leading-relaxed">Durable cement bags, dependable quality checks and a local team ready to support your next order.</p>
             <div class="flex flex-wrap items-center gap-3 pt-1">
-                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-on-tertiary-container px-6 py-3.5 font-semibold text-on-primary shadow-lg transition hover:-translate-y-0.5 hover:bg-tertiary-container max-sm:w-full">Explore our services <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span></a>
+                <a href="{{ route('services') }}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-on-tertiary-container px-6 py-3.5 font-semibold text-on-primary shadow-lg transition hover:-translate-y-0.5 hover:bg-tertiary-container max-sm:w-full">Explore our services <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span></a>
 
             </div>
             <div class="mt-4 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-5 text-sm text-white/75">

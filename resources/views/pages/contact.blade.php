@@ -26,7 +26,7 @@
                             <div class="flex min-w-0 flex-col">
                                 <span class="font-label-technical text-label-technical text-secondary uppercase">PHYSICAL ADDRESS</span>
                                 <p class="font-body-md text-body-md text-primary font-medium mt-0.5">
-                                    Mikindani Industrial Zone, Off Makupa Causeway<br>Mombasa County, Kenya
+                                    Off Mombasa Road (near EPZ Centre)<br>Mombasa, Kenya<br><span class="text-on-surface-variant font-normal">Plus Code: XJRC+WWR</span>
                                 </p>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <a class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-space-md py-3 text-center font-medium text-on-primary shadow-sm hover:bg-primary-container" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Mikindani+Industrial+Zone%2C+Mombasa%2C+Kenya">
+                    <a class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-space-md py-3 text-center font-medium text-on-primary shadow-sm hover:bg-primary-container" target="_blank" rel="noopener noreferrer" href="https://maps.app.goo.gl/hqcNgMHYcjoNbRHx7">
                         <span class="material-symbols-outlined">directions</span> Open directions in Google Maps
                     </a>
                     <p class="font-body-sm text-body-sm text-on-surface-variant">Search the address before travelling; call ahead to confirm the correct entrance and visitor arrangements.</p>

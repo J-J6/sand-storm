@@ -23,10 +23,6 @@
             @endforeach
         </nav>
 
-        <div class="flex shrink-0 items-center md:hidden lg:flex">
-            <a href="{{ route('contact') }}" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-on-tertiary-container px-space-md py-2 font-headline-sm text-body-sm font-semibold text-on-primary transition-colors hover:bg-tertiary-container lg:px-space-lg lg:py-space-sm lg:text-body-md">Inquire Now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
-        </div>
-
     </div>
 </header>
 

@@ -26,7 +26,7 @@
 
             <div class="flex flex-col gap-space-sm">
                 <span class="font-label-technical text-label-technical uppercase tracking-widest text-on-surface">Coast Operations Base</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Mikindani Industrial Corridor<br>Mombasa-Nairobi Highway Junction<br>Mombasa County, Kenya</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><a class="underline underline-offset-4 hover:text-on-surface transition-colors" href="https://maps.app.goo.gl/hqcNgMHYcjoNbRHx7" target="_blank" rel="noopener noreferrer">Off Mombasa Road (near EPZ Centre)<br>Mombasa, Kenya<br>Plus Code: XJRC+WWR</a></p>
                 <div class="flex flex-col gap-space-xs font-label-technical text-label-technical text-on-surface-variant mt-space-xs">
                     <span>PLANT ID: MSA-MIK-094</span>
                     <span>COASTAL REGISTRY: SEC-IV</span>
