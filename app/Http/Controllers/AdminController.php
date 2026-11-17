@@ -13,6 +13,7 @@ class AdminController extends Controller
     private const JOB = 'job-inquiry';
 
     private const SERVICES = [
+        'custom-bag' => 'Custom Bag',
         'cement-packaging' => 'Cement Packaging',
         'raw-material' => 'Raw Material',
         'qa-audit' => 'QA Audit',

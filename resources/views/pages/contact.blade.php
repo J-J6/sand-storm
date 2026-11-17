@@ -11,7 +11,7 @@
             'eyebrow' => 'Contact and quote requests',
             'icon' => 'contact_support',
             'title' => 'Tell us what you need',
-            'description' => 'Ask about packaging, a test, a production review or a quote. We will confirm the scope, price, sample quantity and schedule before work begins.',
+            'description' => 'Request PP or cement bags made to your specification. Answer a few quick questions and we will confirm the price, sample and schedule before work begins.',
         ])
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg xl:gap-space-xl items-start">
@@ -35,7 +35,7 @@
                             <div class="flex min-w-0 flex-col">
                                 <span class="font-label-technical text-label-technical text-secondary uppercase">TELEPHONE &amp; HOTLINE</span>
                                 <p class="font-body-md text-body-md text-primary font-medium mt-0.5">
-                                    <a class="whitespace-nowrap underline underline-offset-4" href="tel:+254412008490">+254 (0) 41 200 8490</a><br><a class="whitespace-nowrap underline underline-offset-4" href="tel:+254722000891">+254 (0) 722 000 891</a>
+                                    <a class="whitespace-nowrap underline underline-offset-4" href="tel:+254 119 888333">+254 119 888333</a><br><a class="whitespace-nowrap underline underline-offset-4" href="tel:+254 119 444666">+254 119 444666</a>
                                 </p>
                                 <span class="font-label-technical text-label-technical text-on-tertiary-container mt-space-xs">Direct Laboratory Hotline: Ext 104</span>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="flex min-w-0 flex-col">
                                 <span class="font-label-technical text-label-technical text-secondary uppercase">OFFICIAL INQUIRIES</span>
                                 <p class="font-body-md text-body-md text-primary font-medium mt-0.5">
-                                    <a class="break-all underline underline-offset-4 hover:text-on-tertiary-container lg:text-[13px] xl:text-[15px]" href="mailto:info@sandstormindustries.co.ke">info@sandstormindustries.co.ke</a><br><a class="break-all underline underline-offset-4 hover:text-on-tertiary-container lg:text-[13px] xl:text-[15px]" href="mailto:compliance@sandstormindustries.co.ke">compliance@sandstormindustries.co.ke</a>
+                                    <a class="break-all underline underline-offset-4 hover:text-on-tertiary-container lg:text-[13px] xl:text-[15px]" href="mailto:sspackaging@sandstormindustriesltd.com">sspackaging@sandstormindustriesltd.com</a><br><a class="break-all underline underline-offset-4 hover:text-on-tertiary-container lg:text-[13px] xl:text-[15px]" href="mailto:jamiljamal@sandstormindustriesltd.com">jamiljamal@sandstormindustriesltd.com</a>
                                 </p>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <div class="flex min-w-0 flex-col">
                                 <span class="font-label-technical text-label-technical text-secondary uppercase">OPERATIONAL HOURS</span>
                                 <p class="font-body-md text-body-md text-primary font-medium mt-0.5">
-                                    Monday &ndash; Saturday: 07:30 &ndash; 17:30 EAT<br>
+                                    Monday &ndash; Saturday: 08:00 &ndash; 17:00 EAT<br>
                                     <span class="text-on-surface-variant font-normal">Call ahead to arrange a visit or sample drop-off.</span>
                                 </p>
                             </div>
@@ -69,10 +69,10 @@
 
             {{-- Contact Form --}}
             <div class="lg:col-span-7 flex flex-col gap-space-lg">
-                <div class="p-space-md sm:p-space-lg md:p-space-xl bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
-                    <h2 class="font-headline-lg text-headline-xl-mobile text-primary sm:text-headline-lg mb-space-xs">Testing Assessment Request</h2>
+                <div id="custom-bag" class="scroll-mt-28 p-space-md sm:p-space-lg md:p-space-xl bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
+                    <h2 class="font-headline-lg text-headline-xl-mobile text-primary sm:text-headline-lg mb-space-xs">Request a Custom Bag</h2>
                     <p class="max-w-[65ch] font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
-                        Tell us what you need and we will confirm the scope, price, sample quantity and schedule before work starts. We aim to acknowledge requests within two business days. Do not include confidential technical details until confidentiality terms are agreed in writing.
+                        Answer the questions below to tell us how you want your PP or cement bags made. We will reply with a price, sample and delivery schedule, and aim to acknowledge requests within two business days.
                     </p>
 
                     @if (session('success'))
@@ -82,8 +82,9 @@
                         </div>
                     @endif
 
-                    <form class="flex flex-col gap-space-md" method="POST" action="{{ route('contact.submit') }}">
+                    <form class="flex flex-col gap-space-md" method="POST" action="{{ route('contact.submit') }}#custom-bag">
                         @csrf
+                        <input type="hidden" name="serviceInterest" value="custom-bag">
                         {{-- Honeypot: real visitors never see or fill this field. --}}
                         <div style="position:absolute;left:-9999px;" aria-hidden="true">
                             <label for="hp_check">Leave this field empty</label>
@@ -97,64 +98,59 @@
                                 @error('fullName') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                             </div>
                             <div class="flex flex-col gap-space-xs">
-                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="orgName">Manufacturer / Organization *</label>
+                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="orgName">Company / Organization *</label>
                                 <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('orgName') border-error @enderror"
                                        id="orgName" name="orgName" autocomplete="organization" placeholder="Mombasa Cement Corp" required type="text" value="{{ old('orgName') }}">
                                 @error('orgName') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-space-md">
-                            <div class="flex flex-col gap-space-xs">
-                                <label class="font-label-technical text-label-technical uppercase text-secondary" for="email">Professional Email *</label>
-                                <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('email') border-error @enderror"
-                                       id="email" name="email" autocomplete="email" placeholder="p.mwangi@organization.com" required type="email" value="{{ old('email') }}">
-                                @error('email') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="flex flex-col gap-space-xs">
-                                <span class="font-label-technical text-label-technical uppercase text-secondary">Service Interest *</span>
+                        <div class="flex flex-col gap-space-xs">
+                            <label class="font-label-technical text-label-technical uppercase text-secondary" for="email">Email *</label>
+                            <input class="h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20 @error('email') border-error @enderror"
+                                   id="email" name="email" autocomplete="email" placeholder="p.mwangi@organization.com" required type="email" value="{{ old('email') }}">
+                            @error('email') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
+                        </div>
+
+                        {{-- Ready-made questions: wording and options live in config/sandstorm.php --}}
+                        <div class="flex flex-col gap-space-md border-t border-outline-variant/40 pt-space-md">
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Tap one answer for each question. If you are unsure, pick the closest option and explain in the notes below.</p>
+                            @foreach (config('sandstorm.custom_bag_questions') as $key => $question)
                                 @php
-                                    $serviceOptions = [
-                                        'cement-packaging' => 'Cement Bag Packaging Compliance (EAS 351)',
-                                        'raw-material' => 'Raw Material Testing (Kraft / Polypropylene)',
-                                        'qa-audit' => 'QA Line Audit & Batch Metrology Certification',
-                                        'consulting' => 'General Production Standards Consulting',
-                                    ];
-                                    $selectedService = old('serviceInterest', request('service'));
+                                    $multiple = $question['multiple'] ?? false;
+                                    $chosen = (array) old($key, []);
                                 @endphp
-                                <details class="service-picker group relative">
-                                    <summary class="flex h-11 cursor-pointer list-none items-center justify-between gap-space-sm rounded-lg border border-outline-variant bg-surface-container-lowest px-3 text-body-md text-on-surface focus:outline-none focus:border-primary [&::-webkit-details-marker]:hidden">
-                                        <span class="min-w-0 truncate" data-selected-service-label>{{ $serviceOptions[$selectedService] ?? 'Select Specialized Capability' }}</span>
-                                        <span class="material-symbols-outlined shrink-0 text-[18px] transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
-                                    </summary>
-                                    <fieldset class="absolute left-0 top-full z-30 mt-space-xs w-full rounded border border-outline-variant bg-surface-container-lowest p-space-xs shadow-lg">
-                                        <legend class="sr-only">Choose a service interest</legend>
-                                        @foreach ($serviceOptions as $value => $label)
-                                            <label class="flex cursor-pointer items-start gap-space-sm rounded px-space-sm py-3 text-body-sm text-on-surface hover:bg-surface-container-low">
-                                                <input class="mt-space-xs accent-primary" type="radio" name="serviceInterest" value="{{ $value }}" @checked($selectedService === $value) @required($loop->first)>
+                                <fieldset class="flex min-w-0 flex-col gap-space-sm">
+                                    <legend class="mb-space-sm font-body-md text-body-md font-semibold text-primary">
+                                        <span class="mr-1 font-label-technical text-label-technical text-secondary">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                        {{ $question['question'] }}@unless ($multiple)&nbsp;*@endunless
+                                    </legend>
+                                    <div class="flex flex-wrap gap-space-sm">
+                                        @foreach ($question['options'] as $value => $label)
+                                            <label class="inline-flex min-h-11 cursor-pointer items-center gap-space-sm rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-sm text-on-surface transition-colors hover:bg-surface-container-low has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-on-primary has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-on-tertiary-container/40">
+                                                <input class="h-4 w-4 shrink-0 accent-on-tertiary-container" type="{{ $multiple ? 'checkbox' : 'radio' }}"
+                                                       name="{{ $multiple ? $key.'[]' : $key }}" value="{{ $value }}"
+                                                       @checked(in_array($value, $chosen, true)) @required(! $multiple)>
                                                 <span>{{ $label }}</span>
                                             </label>
                                         @endforeach
-                                    </fieldset>
-                                </details>
-                                @error('serviceInterest') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
-                            </div>
+                                    </div>
+                                    @error($key) <span class="text-error text-body-sm">{{ $message }}</span> @enderror
+                                </fieldset>
+                            @endforeach
                         </div>
 
                         <div class="flex flex-col gap-space-xs">
-                            <label class="font-label-technical text-label-technical uppercase text-secondary" for="batchDetails">Message / Batch Specifications</label>
+                            <label class="font-label-technical text-label-technical uppercase text-secondary" for="batchDetails">Anything else we should know?</label>
                             <textarea class="p-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-on-tertiary-container/20"
-                                      id="batchDetails" name="batchDetails" placeholder="Detail tare weights, bag ply structure, monthly volume, or compliance verification requirements..." rows="4">{{ old('batchDetails') }}</textarea>
+                                      id="batchDetails" name="batchDetails" placeholder="Exact dimensions, the custom colour or size you want, delivery location, when you need the bags..." rows="4">{{ old('batchDetails') }}</textarea>
+                            @error('batchDetails') <span class="text-error text-body-sm">{{ $message }}</span> @enderror
                         </div>
 
                         <p class="font-body-sm text-body-sm text-on-surface-variant">We use your details to respond to this request. Read our <a class="underline" href="{{ route('privacy') }}">privacy notice</a> and <a class="underline" href="{{ route('terms') }}">request terms</a>.</p>
 
                         <div class="pt-space-sm flex flex-col gap-space-sm">
-                            @include('partials.button', ['label' => 'Submit Technical Inquiry', 'type' => 'submit', 'iconStart' => 'send'])
-                            <div class="flex items-start gap-space-sm text-on-surface-variant font-label-technical text-[11px] leading-4 mt-space-xs">
-                                <span class="material-symbols-outlined shrink-0 text-[15px] text-secondary">lock</span>
-                                <span>Please do not include confidential technical details until confidentiality terms are agreed in writing.</span>
-                            </div>
+                            @include('partials.button', ['label' => 'Send Custom Bag Request', 'type' => 'submit', 'iconStart' => 'send'])
                         </div>
                     </form>
                 </div>
@@ -208,21 +204,5 @@
         </div>
     </div>
 </section>
-
-@push('scripts')
-<script>
-    document.querySelectorAll('.service-picker').forEach((picker) => {
-        const summary = picker.querySelector('summary');
-        const selectedLabel = summary.querySelector('[data-selected-service-label]');
-
-        picker.querySelectorAll('input[name="serviceInterest"]').forEach((option) => {
-            option.addEventListener('change', () => {
-                selectedLabel.textContent = option.closest('label').querySelector('span').textContent.trim();
-                picker.open = false;
-            });
-        });
-    });
-</script>
-@endpush
 
 @endsection

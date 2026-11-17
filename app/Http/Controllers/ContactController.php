@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ContactController extends Controller
@@ -19,7 +20,7 @@ class ContactController extends Controller
 
     public function submit(Request $request): RedirectResponse
     {
-        $successMessage = 'Thanks, your inquiry has been received. Our team aims to respond within two business days. If your request is urgent, please call us.';
+        $successMessage = 'Thanks, your request has been received. Our team aims to respond within two business days. If your request is urgent, please call us.';
 
         // Honeypot: real visitors never see this field, so a value means a bot.
         // Return the normal success message so the bot learns nothing.
@@ -27,20 +28,52 @@ class ContactController extends Controller
             return back()->with('success', $successMessage);
         }
 
-        $validated = $request->validate([
+        $questions = config('sandstorm.custom_bag_questions');
+        $isCustomBag = $request->input('serviceInterest') === 'custom-bag';
+
+        $rules = [
             'fullName' => ['required', 'string', 'max:255'],
             'orgName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'serviceInterest' => ['required', 'in:cement-packaging,raw-material,qa-audit,consulting,job-inquiry'],
+            'serviceInterest' => ['required', 'in:custom-bag,job-inquiry'],
             'batchDetails' => ['nullable', 'string', 'max:5000'],
-        ]);
+        ];
+        $attributes = [];
+
+        // The custom bag form answers a fixed list of questions from config.
+        if ($isCustomBag) {
+            foreach ($questions as $key => $question) {
+                $allowed = Rule::in(array_keys($question['options']));
+                $attributes[$key] = strtolower($question['label']);
+
+                if ($question['multiple'] ?? false) {
+                    $rules[$key] = ['nullable', 'array'];
+                    $rules[$key.'.*'] = [$allowed];
+                } else {
+                    $rules[$key] = ['required', $allowed];
+                }
+            }
+        }
+
+        $validated = $request->validate($rules, [], $attributes);
+
+        $message = $validated['batchDetails'] ?? null;
+
+        if ($isCustomBag) {
+            $lines = [];
+            foreach ($questions as $key => $question) {
+                $labels = array_map(fn ($value) => $question['options'][$value], (array) ($validated[$key] ?? []));
+                $lines[] = $question['label'].': '.($labels ? implode(', ', $labels) : 'None');
+            }
+            $message = implode("\n", $lines).(filled($message) ? "\n\nNotes:\n".$message : '');
+        }
 
         $inquiry = Inquiry::create([
             'full_name' => $validated['fullName'],
             'organization' => $validated['orgName'],
             'email' => $validated['email'],
             'service_interest' => $validated['serviceInterest'],
-            'message' => $validated['batchDetails'] ?? null,
+            'message' => $message,
         ]);
 
         try {
