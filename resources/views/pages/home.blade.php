@@ -19,7 +19,7 @@
             <h1 class="max-w-2xl font-display-lg text-[34px] font-bold leading-[1.08] tracking-tight sm:text-headline-xl sm:leading-[1.06] sm:font-bold lg:text-[48px] lg:leading-[1.05] xl:text-display-lg xl:leading-[1.04]">Packaging strength you can build on.</h1>
             <p class="max-w-xl font-body-lg text-body-md leading-relaxed text-white/75 sm:text-body-lg sm:leading-relaxed">Durable cement bags, dependable quality checks and a local team ready to support your next order.</p>
             
-            <div class="mt-space-md flex max-w-xl flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-5 text-sm text-white/75 lg:text-body-md">
+            <div class="flex max-w-xl flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-space-lg text-sm text-white/75 lg:text-body-md">
                 <span class="inline-flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" aria-hidden="true">verified</span>Batch quality checks</span>
                 <span class="inline-flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" aria-hidden="true">location_on</span>Close to Mombasa port</span>
             </div>
