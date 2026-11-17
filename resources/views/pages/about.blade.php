@@ -16,12 +16,12 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-space-xl items-start">
             <div class="lg:col-span-7 flex flex-col gap-space-lg">
-                <div class="p-space-lg bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm">
-                    <h2 class="font-headline-lg text-headline-xl-mobile text-primary sm:text-headline-lg mb-space-sm flex items-start gap-space-sm">
-                        <span class="material-symbols-outlined mt-1.5 shrink-0 text-on-tertiary-container">local_shipping</span>
-                        The Mikindani Maritime Logistics Advantage
-                    </h2>
-                    <p class="max-w-[65ch] font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                <div class="p-space-md bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm flex flex-col gap-space-xs">
+                    <div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-tertiary-container mb-space-xs">
+                        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                    </div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-primary">The Mikindani Maritime Logistics Advantage</h2>
+                    <p class="max-w-[65ch] font-body-sm text-body-sm text-on-surface-variant">
                         Operating within kilometers of the Port of Mombasa, the Northern Corridor rail network, and key highway junctions gives our testing lab and production floor unparalleled logistical velocity. Raw materials imported through the Kilindini Harbour are inspected and processed with zero transit latency, allowing manufacturers across East and Central Africa to receive verified packaging that meets stringent East African Standards (EAS).
                     </p>
                 </div>
